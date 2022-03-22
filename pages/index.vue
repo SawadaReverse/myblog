@@ -1,13 +1,8 @@
 <template>
-    <v-main>
-        <v-overlay v-model="isLoading">
-            <v-progress-circular
-                indeterminate
-            ></v-progress-circular>
-        </v-overlay>
-
-        <v-container v-for="article in articles" :key="article.path">
-            <v-card link :href="article.path">
+    <v-container>
+        <loading-indicator v-if="isLoading"/>
+        <div v-for="article in articles" :key="article.path">
+            <v-card link :href="article.path" class="mb-3">
                 <v-card-title>
                     {{ article.title }}
                 </v-card-title>
@@ -20,43 +15,41 @@
                     {{ article.description }}
                 </v-card-text>
             </v-card>
-        </v-container>
-    </v-main>
+        </div>
+    </v-container>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, useAsync} from '@nuxtjs/composition-api';
-import {FetchReturn} from "@nuxt/content/types/query-builder";
-
-type articleHeaders = {
-    title: string;
-    description: string;
-    createdAt: string;
-}
-
-type articleList = (articleHeaders & FetchReturn)[]
+import {defineComponent, ref, useAsync, useContext} from '@nuxtjs/composition-api';
+import type {articleList, articleHeaders} from '~/types';
+import loadingIndicator from '~/components/loadingIndicator.vue';
 
 export default defineComponent({
-    name: 'IndexPage',
-    setup(_, context){
+    components: {
+        loadingIndicator
+    },
+    setup() {
         const isLoading = ref<boolean>(true);
         const articles = ref<articleList>([]);
-
-        const rootContext = context.root;
+        const context = useContext();
         useAsync(async () => {
-            const fetched = await rootContext.$content('articles').sortBy('createdAt').fetch<articleHeaders>()
-            if (Array.isArray(fetched)){
-                articles.value = fetched
+            const fetched = await context
+                .$content('articles')
+                .sortBy('createdAt', 'desc')
+                .fetch<articleHeaders>();
+            if (Array.isArray(fetched)) {
+                articles.value = fetched;
             } else {
-                articles.value.push(fetched)
+                articles.value.push(fetched);
             }
-            isLoading.value = false
+
+            isLoading.value = false;
         });
 
         return {
+            isLoading,
             articles,
-            isLoading
-        }
+        };
     }
 });
 </script>

@@ -1,43 +1,39 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/"> Home page </NuxtLink>
+    <v-card>
+        <v-card-text>
+            <v-img :src="picPath"></v-img>
+            <div class="text-center text-h5">
+                <nuxt-link to="/">Back to Home</nuxt-link>
+            </div>
+        </v-card-text>
+    </v-card>
   </v-app>
 </template>
 
-<script>
-export default {
-  name: 'EmptyLayout',
-  layout: 'empty',
-  props: {
-    error: {
-      type: Object,
-      default: null,
+<script lang="ts">
+import {defineComponent, PropType, ref} from '@nuxtjs/composition-api';
+import {errorParams} from '~/types/error';
+export default defineComponent({
+    name: 'EmptyLayout',
+    layout: 'empty',
+    props: {
+        error: {
+            type: Object as PropType<errorParams>,
+            required: true,
+            default: () => {
+                return {
+                    statusCode: 500,
+                    message: 'internal server error'
+                }
+            },
+        },
     },
-  },
-  data() {
-    return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred',
-    }
-  },
-  head() {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
-    return {
-      title,
-    }
-  },
-}
-</script>
 
-<style scoped>
-h1 {
-  font-size: 20px;
-}
-</style>
+    setup(props, _) {
+        const picPath = ref(`https://http.cat/${props.error.statusCode}`)
+        console.error(props.error)
+        return { picPath }
+    }
+})
+</script>

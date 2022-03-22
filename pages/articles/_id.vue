@@ -1,61 +1,51 @@
 <template>
-    <v-main>
-        <v-overlay v-model="isLoading">
-            <v-progress-circular
-                indeterminate
-            ></v-progress-circular>
-        </v-overlay>
+    <v-container>
+        <loading-indicator v-if="isLoading"/>
 
         <article>
-            <v-card>
-                <v-card-title>
-                    {{article.title}}
-                </v-card-title>
-
-                <v-card-text>
-                    <nuxt-content :document="article" />
-                </v-card-text>
-            </v-card>
+            <main-article :article="article"/>
         </article>
-    </v-main>
+    </v-container>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, useAsync, useRoute} from "@nuxtjs/composition-api";
-import {FetchReturn} from "@nuxt/content/types/query-builder";
-
-type errorParams = {
-    statusCode: number;
-    message:    string;
-}
+import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
+import {FetchReturn} from '@nuxt/content/types/query-builder';
+import mainArticle from '~/components/mainArticle.vue';
+import loadingIndicator from '~/components/loadingIndicator.vue';
+import {errorParams} from '~/types/error';
 
 export default defineComponent({
-    name: "ArticlePage",
-    setup(_, context){
-        const rootContext = context.root
-        const route = useRoute()
-        const articleID = route.value.params.id
-        const article = ref<FetchReturn | FetchReturn[]>()
-        const isLoading = ref<boolean>(true)
+    name: 'ArticlePage',
+    components: {
+        mainArticle,
+        loadingIndicator
+    },
+    setup() {
+        const context = useContext();
+        const route = useRoute();
+        const articleID = route.value.params.id;
+        const article = ref<FetchReturn>();
+        const isLoading = ref<boolean>(true);
 
         useAsync(async () => {
-            const loaded = await rootContext.$content(`articles/${articleID}`).fetch()
-            if (Array.isArray(article)) {
+            const loaded = await context.$content(`articles/${articleID}`).fetch();
+            if (Array.isArray(loaded)) {
                 const e: errorParams = {
                     statusCode: 404,
-                    message: ""
-                }
-                rootContext.error(e)
+                    message: ''
+                };
+                context.error(e);
+                return;
             }
-
-            article.value = loaded
-            isLoading.value = false
-        })
+            article.value = loaded;
+            isLoading.value = false;
+        });
 
         return {
             article,
             isLoading
-        }
+        };
     }
 });
 </script>
