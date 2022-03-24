@@ -2,7 +2,7 @@
     <v-container>
         <v-card>
             <v-layout justify-center>
-                <v-avatar size="50%" class="mt-5">
+                <v-avatar size="75%" class="mt-5">
                     <img src="~/assets/face_icon.jpg" alt="さわだのかお">
                 </v-avatar>
             </v-layout>

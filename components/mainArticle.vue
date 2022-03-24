@@ -33,7 +33,8 @@ export default defineComponent({
                     createdAt: '',
                     updatedAt: '',
                     body: {},
-                    toc: []
+                    toc: [],
+                    title: ''
                 };
             }
         }

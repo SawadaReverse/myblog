@@ -22,20 +22,20 @@ export default defineComponent({
         loadingIndicator
     },
     setup() {
-        const context = useContext();
+        const {$content, error} = useContext();
         const route = useRoute();
         const articleID = route.value.params.id;
         const article = ref<FetchReturn>();
         const isLoading = ref<boolean>(true);
 
         useAsync(async () => {
-            const loaded = await context.$content(`articles/${articleID}`).fetch();
+            const loaded = await $content(`articles/${articleID}`).fetch();
             if (Array.isArray(loaded)) {
                 const e: errorParams = {
                     statusCode: 404,
                     message: ''
                 };
-                context.error(e);
+                error(e);
                 return;
             }
             article.value = loaded;
