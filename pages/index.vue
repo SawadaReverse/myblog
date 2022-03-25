@@ -41,11 +41,11 @@ export default defineComponent({
 
         useAsync(async () => {
             const fetched = await $content('articles')
-                .only(['title', 'description', 'createdAt', 'path', 'tags'])
-                .sortBy('createdAt', 'desc')
-                .limit(5)
-                .skip(skip)
-                .fetch<articleHeaders>();
+                                .only(['title', 'description', 'createdAt', 'path', 'tags'])
+                                .sortBy('createdAt', 'desc')
+                                .limit(5)
+                                .skip(skip)
+                                .fetch<articleHeaders>();
             if (Array.isArray(fetched)) {
                 articles.value = fetched;
             } else {
@@ -53,8 +53,8 @@ export default defineComponent({
             }
 
             const allFetch = await $content('articles')
-            .only([])
-            .fetch()
+                                .only([])
+                                .fetch()
             if (Array.isArray(allFetch)) {
                 totalCount.value = allFetch.length
             } else {
