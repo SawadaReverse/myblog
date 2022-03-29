@@ -2,7 +2,9 @@
   <v-app dark>
     <v-card>
         <v-card-text>
-            <v-img :src="picPath"></v-img>
+            <v-layout justify-center :width="$vuetify.breakpoint.smAndDown ? 270 : 600">
+                <v-img :src="picPath" />
+            </v-layout>
             <div class="text-center text-h5">
                 <nuxt-link to="/">Back to Home</nuxt-link>
             </div>

@@ -41,7 +41,6 @@ export default {
         '@nuxt/typescript-build',
         // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
-
         // add own
         '@nuxtjs/composition-api/module',
     ],
@@ -50,6 +49,8 @@ export default {
     modules: [
         // https://go.nuxtjs.dev/content
         '@nuxt/content',
+        // add own
+        '@nuxtjs/dayjs',
     ],
 
     // Content module configuration: https://go.nuxtjs.dev/config-content
@@ -72,6 +73,16 @@ export default {
                 },
             },
         },
+    },
+
+    dayjs: {
+        locales: ['ja'],
+        defaultLocale: 'ja',
+        defaultTimeZone: 'Asia/Tokyo',
+        plugins: [
+            'utc', // import 'dayjs/plugin/utc'
+            'timezone', // import 'dayjs/plugin/timezone'
+        ],
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build

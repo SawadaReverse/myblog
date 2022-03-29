@@ -1,5 +1,8 @@
 import { FetchReturn } from '@nuxt/content/types/query-builder';
-import { tagOnly } from '~/types/tag';
+
+export type tagOnly = {
+    tags: string[];
+};
 
 export type articleHeaders = {
     path: string;
@@ -8,4 +11,4 @@ export type articleHeaders = {
     createdAt: string;
 } & tagOnly;
 
-export type articleList = (articleHeaders & FetchReturn)[];
+export type article = articleHeaders & FetchReturn;

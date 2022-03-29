@@ -2,7 +2,7 @@
     <v-overlay>
         <v-progress-circular
             indeterminate
-        ></v-progress-circular>
+        />
     </v-overlay>
 </template>
 

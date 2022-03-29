@@ -23,7 +23,6 @@
             <v-row>
                 <v-col cols="2" class="hidden-sm-and-down">
                     <profile-intro />
-
                     <tag-accordion class="pa-3"/>
                 </v-col>
 

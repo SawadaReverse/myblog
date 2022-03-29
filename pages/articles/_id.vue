@@ -3,16 +3,17 @@
         <loading-indicator v-if="isLoading"/>
 
         <article>
-            <main-article :article="article"/>
+            <main-article :article="fetched"/>
         </article>
     </v-container>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
-import {FetchReturn} from '@nuxt/content/types/query-builder';
+import {NuxtError} from '@nuxt/types';
 import mainArticle from '~/components/mainArticle.vue';
 import loadingIndicator from '~/components/loadingIndicator.vue';
+import {article} from '~/types/article';
 import {errorParams} from '~/types/error';
 
 export default defineComponent({
@@ -22,28 +23,46 @@ export default defineComponent({
         loadingIndicator
     },
     setup() {
-        const {$content, error} = useContext();
+        const context = useContext()
+        const {$content, $dayjs, error} = context;
         const route = useRoute();
         const articleID = route.value.params.id;
-        const article = ref<FetchReturn>();
+        const fetched = ref<article>({
+            dir: '',
+            path: '',
+            extension: '',
+            slug: '',
+            createdAt: '',
+            updatedAt: '',
+            body: {},
+            toc: [],
+            title: '',
+            description: '',
+            tags: []
+        });
         const isLoading = ref<boolean>(true);
 
         useAsync(async () => {
-            const loaded = await $content(`articles/${articleID}`).fetch();
-            if (Array.isArray(loaded)) {
-                const e: errorParams = {
+            try {
+                const loaded = await $content(`articles/${articleID}`).fetch<article>();
+                if (Array.isArray(loaded)) {
+                    throw new TypeError('fetch result is array')
+                }
+            } catch (e) {
+                const err: NuxtError = {
                     statusCode: 404,
-                    message: ''
-                };
-                error(e);
-                return;
+                    message: 'failed to load article by article id'
+                }
+                error(err)
             }
-            article.value = loaded;
+
+            fetched.value = loaded;
+            fetched.value.createdAt = $dayjs(fetched.value.createdAt).format('YYYY/MM/DD HH:mm:ss')
             isLoading.value = false;
         });
 
         return {
-            article,
+            fetched,
             isLoading
         };
     }

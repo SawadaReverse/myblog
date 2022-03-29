@@ -5,24 +5,36 @@
         </v-card-title>
 
         <v-card-subtitle>
-            {{ article.createdAt }}
+            <div>
+                {{ article.createdAt }}
+            </div>
+
+            <div>
+                タグ:
+                <span v-for="tag in article.tags" :key="tag">
+                    <nuxt-link :to="`/tag/${tag}`">
+                        {{tag}}
+                    </nuxt-link>
+                </span>
+            </div>
+
         </v-card-subtitle>
 
         <v-card-text>
-            <nuxt-content :document="article"/>
+            <nuxt-content :document="article" />
         </v-card-text>
     </v-card>
 </template>
 
 <script lang="ts">
 import {defineComponent, PropType} from '@nuxtjs/composition-api';
-import {FetchReturn} from '@nuxt/content/types/query-builder';
+import {article} from '~/types/article';
 
 export default defineComponent({
     name: 'MainArticle',
     props: {
         article: {
-            type: Object as PropType<FetchReturn>,
+            type: Object as PropType<article>,
             required: true,
             default: () => {
                 return {
@@ -34,12 +46,13 @@ export default defineComponent({
                     updatedAt: '',
                     body: {},
                     toc: [],
-                    title: ''
+                    title: '',
+                    description: '',
+                    tags: []
                 };
             }
         }
     }
-
 });
 </script>
 

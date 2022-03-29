@@ -13,8 +13,8 @@ import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/comp
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleCard from '~/components/articleCard.vue';
-import {articleList, articleHeaders} from '~/types/articleList';
-import {pageQuery} from '~/types/pagination.d';
+import {articleHeaders} from '~/types/article';
+import {pageQuery} from '~/types/pagination';
 
 export default defineComponent({
     components: {
@@ -27,7 +27,7 @@ export default defineComponent({
         const route = useRoute();
 
         const isLoading = ref<boolean>(true);
-        const articles = ref<articleList>([]);
+        const articles = ref<articleHeaders[]>([]);
         const totalCount = ref(0)
         let skip = 0
 
@@ -61,7 +61,6 @@ export default defineComponent({
                 totalCount.value = 1
             }
 
-            console.log(articles.value)
             isLoading.value = false;
         });
 

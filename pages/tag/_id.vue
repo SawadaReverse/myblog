@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
-import {articleHeaders} from '~/types/articleList';
+import {articleHeaders} from '~/types/article';
 import {pageQuery} from '~/types/pagination'
 
 export default defineComponent({

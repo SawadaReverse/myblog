@@ -8,7 +8,7 @@
             {{ article.createdAt }}
             <div v-if="article.tags">
                 タグ:
-                <span v-for="tag in article.tags">
+                <span v-for="tag in article.tags" :key="tag">
                     <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none">
                         {{tag}}
                     </nuxt-link>
@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from '@nuxtjs/composition-api';
-import {articleHeaders} from '~/types/articleList';
+import {defineComponent, PropType, useContext} from '@nuxtjs/composition-api';
+import {articleHeaders} from '~/types/article';
 
 export default defineComponent({
     name: 'ArticleCard',
@@ -34,8 +34,15 @@ export default defineComponent({
             required: true,
         }
     },
-    setup() {
+    setup(props){
+        const context = useContext()
+        const {$dayjs} = context
+        const edited = props.article
+        edited.createdAt = $dayjs(edited.createdAt).format('YYYY/MM/DD HH:mm:ss')
 
+        return {
+            edited
+        }
     }
 });
 </script>
