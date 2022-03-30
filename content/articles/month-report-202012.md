@@ -16,7 +16,7 @@ tags: ['月報']
 
 2本目: [電工を完走した感想ですが(激ウマギャグ)](/articles/e-construction-license)
 
-3本目:ThinkCentre E73を買って壊しました。
+3本目: [ThinkCentre E73を買って壊しました。](/articles/bought-e73-and-broke)
 
 3本書いていたら4時間も経ってしまったので、今日はもう寝ます…
 これからはたくさん更新するから見て…
