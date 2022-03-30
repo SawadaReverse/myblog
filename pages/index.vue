@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
+import {computed, defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleCard from '~/components/articleCard.vue';
-import {articleHeaders} from '~/types/article';
+import {article} from '~/types/article';
 import {pageQuery} from '~/types/pagination';
 
 export default defineComponent({
@@ -23,46 +23,65 @@ export default defineComponent({
         articleCard
     },
     setup() {
-        const {$content} = useContext();
+        const {$content, error} = useContext();
         const route = useRoute();
-
         const isLoading = ref<boolean>(true);
-        const articles = ref<articleHeaders[]>([]);
-        const totalCount = ref(0)
-        let skip = 0
-
         const query = <pageQuery>route.value.query
         const pageQuery = Number(query.page)
-        if (isNaN(pageQuery) || pageQuery < 1) {
-            skip = 0
-        } else {
-            skip = 5 * (pageQuery - 1)
-        }
+        const skip = computed(() => {
+            if (isNaN(pageQuery) || pageQuery < 1) {
+                return 0
+            } else {
+                return 5 * (pageQuery - 1)
+            }
+        })
 
-        useAsync(async () => {
-            const fetched = await $content('articles')
+        const fetched = useAsync(() => $content('articles')
                                 .only(['title', 'description', 'createdAt', 'path', 'tags'])
                                 .sortBy('createdAt', 'desc')
                                 .limit(5)
-                                .skip(skip)
-                                .fetch<articleHeaders>();
-            if (Array.isArray(fetched)) {
-                articles.value = fetched;
+                                .skip(skip.value)
+                                .fetch<article>()
+        )
+
+        const articles = computed(() => {
+            if (fetched.value === null) {
+                error({
+                    statusCode: 500,
+                    message: "fetched result is null"
+                })
+                return
+            }
+            if (Array.isArray(fetched.value)) {
+                return fetched.value;
             } else {
-                articles.value.push(fetched);
+                return [fetched.value];
+            }
+        })
+
+        console.log(articles.value)
+
+        const allFetch = useAsync(() => $content('articles').only([]).fetch<article>())
+
+        const totalCount = computed(() => {
+            if (fetched.value === null) {
+                error({
+                    statusCode: 500,
+                    message: "all fetch result is null"
+                })
+                return
             }
 
-            const allFetch = await $content('articles')
-                                .only([])
-                                .fetch()
             if (Array.isArray(allFetch)) {
-                totalCount.value = allFetch.length
+                return allFetch.length
             } else {
-                totalCount.value = 1
+                return 1
             }
+        })
 
-            isLoading.value = false;
-        });
+        console.log(totalCount.value)
+
+        isLoading.value = false;
 
         return {
             isLoading,
