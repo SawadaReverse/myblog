@@ -10,26 +10,28 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
+import {computed, defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
 import {articleHeaders} from '~/types/article';
-import {pageQuery} from '~/types/pagination'
+import {isPageQuery} from '~/lib/typeGuards/isPageQuery';
 
 export default defineComponent({
     name: 'TagPage',
     setup(){
         const context = useContext()
         const {$content} = context
-
-        let skip: number
         const route = useRoute()
         const tag = route.value.params.id
-        const query = <pageQuery>route.value.query
-        const pageQuery = Number(query.page)
-        if (isNaN(pageQuery) || pageQuery < 1) {
-            skip = 0
-        } else {
-            skip = 5 * (pageQuery - 1)
-        }
+        const pageQuery = computed((): number | undefined => {
+            if (!isPageQuery(route.value.query)) return;
+            return Number(route.value.query.page);
+        });
+        const skip = computed(() => {
+            if (!pageQuery.value) {
+                return 0;
+            } else {
+                return 5 * (pageQuery.value - 1);
+            }
+        });
 
         const articles = ref<articleHeaders[]>([])
         const isLoading = ref(true)
@@ -40,7 +42,7 @@ export default defineComponent({
                             .only(['title', 'description', 'createdAt', 'path', 'tags'])
                             .where({'tags': {$contains: tag}})
                             .sortBy('createdAt', 'desc')
-                            .skip(skip)
+                            .skip(skip.value)
                             .limit(5)
                             .fetch<articleHeaders>()
             if (Array.isArray(res)) {
