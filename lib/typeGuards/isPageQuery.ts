@@ -5,7 +5,7 @@ type pageQuery = {
 export const isPageQuery = (v: any): v is pageQuery => {
     if (typeof v.page === 'string') {
         const n = Number(v.page);
-        return !isNaN(n);
+        return !isNaN(n) && n > 0;
     }
     return false;
 };
