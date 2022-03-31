@@ -9,13 +9,11 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref, useAsync, useContext, useRoute} from '@nuxtjs/composition-api';
+import {defineComponent} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleCard from '~/components/articleCard.vue';
-import {article} from '~/types/article';
-import {isPageQuery} from "~/lib/typeGuards/isPageQuery";
-
+import {index} from '~/src'
 export default defineComponent({
     name: 'IndexPage',
     components: {
@@ -23,76 +21,8 @@ export default defineComponent({
         pagination,
         articleCard
     },
-    setup() {
-        const {$content, error} = useContext();
-        const route = useRoute();
-        const isLoading = ref<boolean>(true);
-
-        const pageQuery = computed((): number | undefined => {
-            if(!isPageQuery(route.value.query)) return;
-                return  Number(route.value.query.page);
-        })
-
-        const skip = computed(() => {
-            if (!pageQuery.value || pageQuery.value < 1) {
-                return 0
-            } else {
-                return 5 * (pageQuery.value - 1)
-            }
-        });
-
-        const fetched = useAsync(() => $content('articles')
-                                .only(['title', 'description', 'createdAt', 'path', 'tags'])
-                                .sortBy('createdAt', 'desc')
-                                .limit(5)
-                                .skip(skip.value)
-                                .fetch<article>()
-        )
-
-        const articles = computed(() => {
-            if (fetched.value === null) {
-                error({
-                    statusCode: 500,
-                    message: "fetched result is null"
-                })
-                return
-            }
-            if (Array.isArray(fetched.value)) {
-                return fetched.value;
-            } else {
-                return [fetched.value];
-            }
-        })
-
-        console.log(articles.value)
-
-        const allFetch = useAsync(() => $content('articles').only([]).fetch<article>())
-
-        const totalCount = computed(() => {
-            if (fetched.value === null) {
-                error({
-                    statusCode: 500,
-                    message: "all fetch result is null"
-                })
-                return
-            }
-
-            if (Array.isArray(allFetch)) {
-                return allFetch.length
-            } else {
-                return 1
-            }
-        })
-
-        console.log(totalCount.value)
-
-        isLoading.value = false;
-
-        return {
-            isLoading,
-            articles,
-            totalCount
-        };
+    setup(props, context) {
+        return index!(props, context)
     }
 });
 </script>
