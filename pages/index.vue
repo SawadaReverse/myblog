@@ -17,6 +17,7 @@ import {article} from '~/types/article';
 import {isPageQuery} from "~/lib/typeGuards/isPageQuery";
 
 export default defineComponent({
+    name: 'IndexPage',
     components: {
         loadingIndicator,
         pagination,
