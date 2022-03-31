@@ -6,8 +6,9 @@ import {
     useContext,
     useRoute,
 } from '@nuxtjs/composition-api';
+import { getPageQuery } from '~/src/getPageQuery';
 import { article } from '~/types/article';
-import { isPageQuery } from '~/lib/typeGuards/isPageQuery';
+import { pageQuery } from '~/types/pageQuery';
 
 const main = defineComponent({
     setup() {
@@ -15,17 +16,9 @@ const main = defineComponent({
         const route = useRoute();
         const isLoading = ref<boolean>(true);
 
-        const pageQuery = computed((): number | undefined => {
-            if (!isPageQuery(route.value.query)) return;
-            return Number(route.value.query.page);
-        });
-
         const skip = computed(() => {
-            if (!pageQuery.value) {
-                return 0;
-            } else {
-                return 5 * (pageQuery.value - 1);
-            }
+            const query = getPageQuery(route.value.query as pageQuery);
+            return (query - 1) * 5;
         });
 
         const fetched = useAsync(() =>
@@ -38,7 +31,7 @@ const main = defineComponent({
         );
 
         const articles = computed(() => {
-            console.log(fetched.value);
+            // console.log(fetched.value);
             if (fetched.value === null) {
                 return [];
             }
@@ -54,7 +47,7 @@ const main = defineComponent({
         );
 
         const totalCount = computed(() => {
-            console.log('total count: ', allFetch.value);
+            // console.log('total count: ', allFetch.value);
             if (allFetch.value === null) {
                 return 0;
             }

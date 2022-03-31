@@ -12,10 +12,11 @@
 
 <script lang="ts">
 import {computed, defineComponent, useRoute, useRouter} from '@nuxtjs/composition-api';
-import {isPageQuery} from '~/lib/typeGuards/isPageQuery';
+import {getPageQuery} from '~/src/getPageQuery';
+import {pageQuery} from '~/types/pageQuery';
 
 export default defineComponent({
-    name: 'Pagination',
+    name: 'PaginationComponent',
     props: {
         articleCount: {
             type: Number,
@@ -26,31 +27,26 @@ export default defineComponent({
     setup(props, _){
         const route = useRoute()
         const router = useRouter()
-        const pageQuery = computed((): number | undefined => {
-            if (!isPageQuery(route.value.query)) return;
-            return Number(route.value.query.page);
-        });
-        const nowSelect = computed((): number => {
-            if (!pageQuery.value) {
-                return 1
-            } else {
-                return pageQuery.value
-            }
-        })
+        const query = computed(() => getPageQuery(route.value.query as pageQuery))
+        const nowSelect = query.value
 
         const paginationLength = Math.floor(props.articleCount / 5) + 1
         const jumpTo = (page: number) => {
             const nowPath = route.value.path
+            if (page === 1){
+                router.push(nowPath)
+                return
+            }
             router.push(`${nowPath}?page=${page}`)
         }
         const jumpToNext = () => {
-            if (nowSelect.value !== paginationLength) {
-                jumpTo(nowSelect.value + 1)
+            if (nowSelect !== paginationLength) {
+                jumpTo(nowSelect + 1)
             }
         }
         const jumpToPrev = () => {
-            if (nowSelect.value > 1) {
-                jumpTo(nowSelect.value + 1)
+            if (nowSelect > 1) {
+                jumpTo(nowSelect + 1)
             }
         }
 
