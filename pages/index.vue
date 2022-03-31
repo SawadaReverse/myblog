@@ -14,7 +14,7 @@ import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleCard from '~/components/articleCard.vue';
 import {article} from '~/types/article';
-import {pageQuery} from '~/types/pagination';
+import {isPageQuery} from "~/lib/typeGuards/isPageQuery";
 
 export default defineComponent({
     components: {
@@ -26,15 +26,19 @@ export default defineComponent({
         const {$content, error} = useContext();
         const route = useRoute();
         const isLoading = ref<boolean>(true);
-        const query = <pageQuery>route.value.query
-        const pageQuery = Number(query.page)
+
+        const pageQuery = computed((): number | undefined => {
+            if(!isPageQuery(route.value.query)) return;
+                return  Number(route.value.query.page);
+        })
+
         const skip = computed(() => {
-            if (isNaN(pageQuery) || pageQuery < 1) {
+            if (!pageQuery.value || pageQuery.value < 1) {
                 return 0
             } else {
-                return 5 * (pageQuery - 1)
+                return 5 * (pageQuery.value - 1)
             }
-        })
+        });
 
         const fetched = useAsync(() => $content('articles')
                                 .only(['title', 'description', 'createdAt', 'path', 'tags'])
