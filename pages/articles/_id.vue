@@ -14,7 +14,6 @@ import {NuxtError} from '@nuxt/types';
 import mainArticle from '~/components/mainArticle.vue';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import {article} from '~/types/article';
-import {errorParams} from '~/types/error';
 
 export default defineComponent({
     name: 'ArticlePage',
@@ -46,8 +45,13 @@ export default defineComponent({
             try {
                 const loaded = await $content(`articles/${articleID}`).fetch<article>();
                 if (Array.isArray(loaded)) {
-                    throw new TypeError('fetch result is array')
+                    error({
+                        statusCode: 500,
+                        message: 'fetch result is array'
+                    })
+                    return
                 }
+                fetched.value = loaded;
             } catch (e) {
                 const err: NuxtError = {
                     statusCode: 404,
@@ -56,7 +60,6 @@ export default defineComponent({
                 error(err)
             }
 
-            fetched.value = loaded;
             fetched.value.createdAt = $dayjs(fetched.value.createdAt).format('YYYY/MM/DD HH:mm:ss')
             isLoading.value = false;
         });

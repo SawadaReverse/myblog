@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
+import {NuxtError} from '@nuxt/types';
 import {defineComponent, PropType, ref} from '@nuxtjs/composition-api';
-import {errorParams} from '~/types/error';
 export default defineComponent({
     name: 'EmptyLayout',
     layout: 'empty',
     props: {
         error: {
-            type: Object as PropType<errorParams>,
+            type: Object as PropType<NuxtError>,
             required: true,
             default: () => {
                 return {
@@ -34,7 +34,7 @@ export default defineComponent({
 
     setup(props, _) {
         const picPath = ref(`https://http.cat/${props.error.statusCode}`)
-        console.error(props.error)
+        console.error(props.error.message)
         return { picPath }
     }
 })
