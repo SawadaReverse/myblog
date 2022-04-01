@@ -14,7 +14,7 @@
                 </v-list-item>
 
                 <v-list-item>
-                    <tag-accordion />
+                    <tag-list />
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
@@ -23,7 +23,7 @@
             <v-row>
                 <v-col cols="2" class="hidden-sm-and-down">
                     <profile-intro />
-                    <tag-accordion class="pa-3"/>
+                    <tag-list class="pa-3"/>
                 </v-col>
 
                 <v-col>
@@ -37,12 +37,12 @@
 <script lang="ts">
 import {defineComponent, ref, useRouter} from '@nuxtjs/composition-api';
 import profileIntro from '~/components/profileIntro.vue';
-import tagAccordion from '~/components/tagAccordion.vue';
+import tagList from '~/components/tagList.vue';
 
 export default defineComponent({
     components: {
         profileIntro,
-        tagAccordion
+        tagList
     },
 
     setup() {

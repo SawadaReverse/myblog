@@ -1,41 +1,43 @@
 <template>
-    <v-select
-        select="nowSelect"
-        :items="tags"
-        label="タグ"
-        solo
-        @change="jumpToTags"
-    />
+    <v-container>
+        <h3 class="ml-3 mb-3">タグ</h3>
+        <v-divider class="mb-5"/>
+        <v-list v-for="tag in tags" :key="tag">
+            <v-list-item>
+                <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none">
+                    {{tag}}
+                </nuxt-link>
+            </v-list-item>
+        </v-list>
+    </v-container>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref, useAsync, useContext, useRouter} from '@nuxtjs/composition-api';
-import {tagOnly} from '~/types/article';
+import {article, tagOnly} from '~/types/article';
 
 export default defineComponent({
-    name: 'TagAccordion',
+    name: 'TagList',
     setup() {
         const {$content} = useContext()
         const router = useRouter()
         const tags = ref<string[]>([])
         const apiResList = ref<tagOnly[]>([])
-        const nowSelect = ref(0)
+        const nowSelect = ref()
         const jumpToTags = (tag: string) => {
-            nowSelect.value = 0
             router.push(`/tag/${tag}`)
         }
 
         useAsync(async () => {
-            const res = await $content('articles').only(['tags']).fetch<tagOnly>()
+            const res = await $content('articles').only(['tags']).fetch<article>()
             if (Array.isArray(res)) {
                 apiResList.value = res
             } else {
-                apiResList.value.push(res)
+                apiResList.value = [res]
             }
 
             apiResList.value.forEach((item) => {
-                // 型定義上undefinedにはなりえないが、tagが定義されていない場合はundefinedになる
-                if (item.tags !== undefined) {
+                if (item.tags !== []) {
                     item.tags.forEach((tag) => {
                         tags.value.push(tag)
                     })
