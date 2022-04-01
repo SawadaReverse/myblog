@@ -31,7 +31,6 @@ const main = defineComponent({
         );
 
         const articles = computed(() => {
-            // console.log(fetched.value);
             if (fetched.value === null) {
                 return [];
             }
@@ -47,7 +46,6 @@ const main = defineComponent({
         );
 
         const totalCount = computed(() => {
-            // console.log('total count: ', allFetch.value);
             if (allFetch.value === null) {
                 return 0;
             }
@@ -69,4 +67,4 @@ const main = defineComponent({
     },
 });
 
-export const index = main.setup;
+export default main.setup;

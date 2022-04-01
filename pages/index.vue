@@ -13,7 +13,7 @@ import {defineComponent} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleCard from '~/components/articleCard.vue';
-import {index} from '~/src/indexPage'
+import main from '~/src/indexPage'
 export default defineComponent({
     name: 'IndexPage',
     components: {
@@ -22,7 +22,7 @@ export default defineComponent({
         articleCard
     },
     setup(props, context) {
-        return index!(props, context)
+        return main!(props, context)
     }
 });
 </script>
