@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card :class="$vuetify.breakpoint.xs ? '' : 'px-10'">
         <v-card-title>
             {{ article.title }}
         </v-card-title>
