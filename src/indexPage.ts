@@ -52,8 +52,8 @@ const main = defineComponent({
                 return 0;
             }
 
-            if (Array.isArray(allFetch)) {
-                return allFetch.length;
+            if (Array.isArray(allFetch.value)) {
+                return allFetch.value.length;
             } else {
                 return 1;
             }

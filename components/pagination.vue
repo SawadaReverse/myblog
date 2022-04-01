@@ -20,7 +20,6 @@ export default defineComponent({
     props: {
         articleCount: {
             type: Number,
-            default: 1,
             required: true
         }
     },
@@ -30,7 +29,9 @@ export default defineComponent({
         const query = computed(() => getPageQuery(route.value.query as pageQuery))
         const nowSelect = query.value
 
-        const paginationLength = Math.floor(props.articleCount / 5) + 1
+        const paginationLength = computed(() => {
+            return Math.floor(props.articleCount / 5) + 1
+        })
         const jumpTo = (page: number) => {
             const nowPath = route.value.path
             if (page === 1){
@@ -40,7 +41,7 @@ export default defineComponent({
             router.push(`${nowPath}?page=${page}`)
         }
         const jumpToNext = () => {
-            if (nowSelect !== paginationLength) {
+            if (nowSelect !== paginationLength.value) {
                 jumpTo(nowSelect + 1)
             }
         }
