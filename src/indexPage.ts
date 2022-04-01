@@ -5,6 +5,7 @@ import {
     useAsync,
     useContext,
     useRoute,
+    watch,
 } from '@nuxtjs/composition-api';
 import { getPageQuery } from '~/src/getPageQuery';
 import { article } from '~/types/article';
@@ -15,25 +16,30 @@ const main = defineComponent({
         const { $content } = useContext();
         const route = useRoute();
         const isLoading = ref<boolean>(true);
+        const fetched = ref<article | article[]>();
 
         const skip = computed(() => {
             const query = getPageQuery(route.value.query as pageQuery);
             return (query - 1) * 5;
         });
 
-        const fetched = useAsync(() =>
-            $content('articles')
+        const getArticle = async () => {
+            fetched.value = await $content('articles')
                 .only(['title', 'description', 'createdAt', 'path', 'tags'])
                 .sortBy('createdAt', 'desc')
                 .limit(5)
                 .skip(skip.value)
-                .fetch<article>()
-        );
+                .fetch<article>();
+        };
 
-        const articles = computed(() => {
-            if (fetched.value === null) {
-                return [];
-            }
+        // 最初の1回
+        getArticle();
+
+        watch(skip, () => getArticle());
+
+        const articles = computed<article[]>(() => {
+            if (fetched.value === undefined) return [];
+
             if (Array.isArray(fetched.value)) {
                 return fetched.value;
             } else {

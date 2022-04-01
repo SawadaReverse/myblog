@@ -1,9 +1,7 @@
 <template>
     <v-container>
-        <loading-indicator v-if="isLoading"/>
-        <div v-for="article in articles" :key="article.path">
-            <article-card :article="article" />
-        </div>
+        <loading-indicator v-if="isLoading" />
+        <article-list :articles="articles" />
         <pagination :article-count="totalCount" />
     </v-container>
 </template>
@@ -12,14 +10,14 @@
 import {defineComponent} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
-import articleCard from '~/components/articleCard.vue';
+import articleList from '~/components/articleList.vue';
 import main from '~/src/indexPage'
 export default defineComponent({
     name: 'IndexPage',
     components: {
         loadingIndicator,
         pagination,
-        articleCard
+        articleList
     },
     setup(props, context) {
         return main!(props, context)
