@@ -11,7 +11,7 @@ import {defineComponent} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import pagination from '~/components/pagination.vue';
 import articleList from '~/components/articleList.vue';
-import main from '~/src/indexPage'
+import {indexPage} from '~/src/indexPage'
 export default defineComponent({
     name: 'IndexPage',
     components: {
@@ -19,8 +19,8 @@ export default defineComponent({
         pagination,
         articleList
     },
-    setup(props, context) {
-        return main!(props, context)
+    setup() {
+        return indexPage();
     }
 });
 </script>

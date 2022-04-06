@@ -3,7 +3,7 @@
         <loading-indicator v-if="isLoading"/>
 
         <article>
-            <main-article :article="fetched"/>
+            <main-article :article="article"/>
         </article>
     </v-container>
 </template>
@@ -12,7 +12,7 @@
 import {defineComponent} from '@nuxtjs/composition-api';
 import mainArticle from '~/components/mainArticle.vue';
 import loadingIndicator from '~/components/loadingIndicator.vue';
-import main from '~/src/articlePage'
+import {articlePage} from '~/src/articlePage'
 
 export default defineComponent({
     name: 'ArticlePage',
@@ -20,8 +20,8 @@ export default defineComponent({
         mainArticle,
         loadingIndicator
     },
-    setup(props, context){
-        return main!(props, context)
+    setup(){
+        return articlePage()
     }
 });
 </script>

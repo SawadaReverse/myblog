@@ -14,7 +14,7 @@ import {defineComponent} from '@nuxtjs/composition-api';
 import loadingIndicator from '~/components/loadingIndicator.vue';
 import articleCard from '~/components/articleCard.vue';
 import pagination from '~/components/pagination.vue';
-import main from '~/src/tagPage'
+import {tagPage} from '~/src/tagPage'
 
 export default defineComponent({
     name: 'TagPage',
@@ -23,8 +23,8 @@ export default defineComponent({
         articleCard,
         pagination
     },
-    setup(props,context){
-        return main!(props, context)
+    setup(){
+        return tagPage();
     }
 });
 </script>
