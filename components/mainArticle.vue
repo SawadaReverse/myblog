@@ -22,18 +22,29 @@
 
         <v-divider />
 
+        <surround-pagination />
+
         <v-card-text>
-            <nuxt-content :document="article" />
+            <article>
+                <nuxt-content :document="article" />
+            </article>
         </v-card-text>
+
+        <surround-pagination />
+
     </v-card>
 </template>
 
 <script lang="ts">
 import {defineComponent, PropType} from '@nuxtjs/composition-api';
+import surroundPagination from '~/components/surroundPagination.vue';
 import {article} from '~/types/article';
 
 export default defineComponent({
     name: 'MainArticle',
+    components: {
+        surroundPagination
+    },
     props: {
         article: {
             type: Object as PropType<article>,

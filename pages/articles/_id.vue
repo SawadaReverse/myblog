@@ -2,9 +2,7 @@
     <v-container>
         <loading-indicator v-if="isLoading"/>
 
-        <article>
-            <main-article :article="article"/>
-        </article>
+        <main-article :article="article"/>
     </v-container>
 </template>
 
@@ -18,7 +16,7 @@ export default defineComponent({
     name: 'ArticlePage',
     components: {
         mainArticle,
-        loadingIndicator
+        loadingIndicator,
     },
     setup(){
         return articlePage()
