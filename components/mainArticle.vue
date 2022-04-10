@@ -1,5 +1,5 @@
 <template>
-    <v-card :class="$vuetify.breakpoint.xs ? '' : 'px-10'">
+    <v-card :class="$vuetify.breakpoint.smAndDown ? '' : 'px-10'">
         <v-card-title>
             {{ article.title }}
         </v-card-title>
@@ -12,13 +12,15 @@
             <div>
                 タグ:
                 <span v-for="tag in article.tags" :key="tag">
-                    <nuxt-link :to="`/tag/${tag}`">
+                    <nuxt-link :to="`/tag/${tag}`" class="favorite-color">
                         {{tag}}
                     </nuxt-link>
                 </span>
             </div>
 
         </v-card-subtitle>
+
+        <v-divider />
 
         <v-card-text>
             <nuxt-content :document="article" />
@@ -57,8 +59,43 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-::v-deep img {
-    max-width: min(50%, 400px);
-    margin: 1rem 0;
+::v-deep {
+    h2 {
+        padding-bottom: 0.5rem;
+        margin: 1rem 0;
+        display: inline-block;
+        border-bottom: double 6px #FF6E00;
+    }
+
+    h3 {
+        margin: 1rem 0;
+        display: inline-block;
+        border-bottom: dotted 3px #FF6E00;
+    }
+
+    a {
+        color: #FF6E00 !important;
+    }
+
+    pre {
+        margin: 2rem 0;
+    }
+
+    table {
+        margin: 2rem 0;
+        border-collapse: collapse;
+        th {
+            border: solid 1px #FF6E00;
+        }
+        td {
+            padding: 0.5rem;
+            border: 1px white solid;
+        }
+    }
+
+    img {
+        max-width: min(50%, 400px);
+        margin: 1rem 0;
+    }
 }
 </style>

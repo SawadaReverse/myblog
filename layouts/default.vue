@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app clipped-left fixed>
+        <v-app-bar app clipped-left fixed color="#FF6E00">
             <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawerIsVisible = !drawerIsVisible"/>
             <v-toolbar-title style="cursor: pointer" @click="jumpToIndex">
                 さわだ見聞録
@@ -10,7 +10,7 @@
         <v-navigation-drawer v-model="drawerIsVisible" app clipped disable-resize-watcher class="hidden-md-and-up">
             <v-list>
                 <v-list-item>
-                    <profile-intro/>
+                    <profile-card/>
                 </v-list-item>
 
                 <v-list-item>
@@ -22,13 +22,17 @@
         <v-main>
             <v-row>
                 <v-col cols="2" class="hidden-sm-and-down">
-                    <profile-intro />
+                    <profile-card />
                     <tag-list class="pa-3"/>
                 </v-col>
 
-                <v-col>
-                    <Nuxt/>
+                <v-spacer />
+
+                <v-col md="10" cols="12">
+                    <Nuxt />
                 </v-col>
+
+                <v-spacer />
             </v-row>
         </v-main>
     </v-app>
@@ -36,12 +40,12 @@
 
 <script lang="ts">
 import {defineComponent, ref, useRouter} from '@nuxtjs/composition-api';
-import profileIntro from '~/components/profileIntro.vue';
+import profileCard from '~/components/profileCard.vue';
 import tagList from '~/components/tagList.vue';
 
 export default defineComponent({
     components: {
-        profileIntro,
+        profileCard,
         tagList
     },
 

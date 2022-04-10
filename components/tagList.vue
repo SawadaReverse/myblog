@@ -4,7 +4,7 @@
         <v-divider class="mb-5"/>
         <v-list v-for="tag in tags" :key="tag">
             <v-list-item>
-                <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none">
+                <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none favorite-color">
                     {{tag}}
                 </nuxt-link>
             </v-list-item>

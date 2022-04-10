@@ -2,6 +2,7 @@
     <v-container>
         <v-pagination
             v-model="nowSelect"
+            color="#FF6E00"
             :length="paginationLength"
             @input="jumpTo"
             @next="jumpToNext"

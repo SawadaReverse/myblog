@@ -6,7 +6,7 @@
                 <v-img :src="picPath" />
             </v-layout>
             <div class="text-center text-h5">
-                <nuxt-link to="/">Back to Home</nuxt-link>
+                <nuxt-link to="/" class="favorite-color">Back to Home</nuxt-link>
             </div>
         </v-card-text>
     </v-card>
