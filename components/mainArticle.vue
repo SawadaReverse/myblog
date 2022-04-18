@@ -75,17 +75,17 @@ export default defineComponent({
         padding-bottom: 0.5rem;
         margin: 1rem 0;
         display: inline-block;
-        border-bottom: double 6px #FF6E00;
+        border-bottom: double 6px orange;
     }
 
     h3 {
         margin: 1rem 0;
         display: inline-block;
-        border-bottom: dotted 3px #FF6E00;
+        border-bottom: dotted 3px orange;
     }
 
     a {
-        color: #FF6E00 !important;
+        color: orange !important;
     }
 
     pre {
@@ -96,12 +96,16 @@ export default defineComponent({
         margin: 2rem 0;
         border-collapse: collapse;
         th {
-            border: solid 1px #FF6E00;
+            border: solid 1px orange;
         }
         td {
             padding: 0.5rem;
             border: 1px white solid;
         }
+    }
+
+    ul {
+        margin-bottom: 1rem;
     }
 
     img {

@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app clipped-left fixed color="#FF6E00">
+        <v-app-bar app clipped-left fixed color="orange">
             <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawerIsVisible = !drawerIsVisible"/>
             <v-toolbar-title style="cursor: pointer" @click="jumpToIndex">
                 さわだ見聞録
@@ -8,7 +8,7 @@
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawerIsVisible" app clipped disable-resize-watcher class="hidden-md-and-up">
-            <v-list>
+            <v-list dense>
                 <v-list-item>
                     <profile-card/>
                 </v-list-item>
@@ -23,16 +23,12 @@
             <v-row>
                 <v-col cols="2" class="hidden-sm-and-down">
                     <profile-card />
-                    <tag-list class="pa-3"/>
+                    <tag-list class="pa-8"/>
                 </v-col>
-
-                <v-spacer />
 
                 <v-col md="10" cols="12">
                     <Nuxt />
                 </v-col>
-
-                <v-spacer />
             </v-row>
         </v-main>
     </v-app>

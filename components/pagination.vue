@@ -1,8 +1,8 @@
 <template>
     <v-container>
         <v-pagination
-            v-model="nowSelect"
-            color="#FF6E00"
+            v-model="viewSelect"
+            color="orange"
             :length="paginationLength"
             @input="jumpTo"
             @next="jumpToNext"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, useRoute, useRouter} from '@nuxtjs/composition-api';
+import {computed, defineComponent, ref, useRoute, useRouter} from '@nuxtjs/composition-api';
 import {getPageQuery} from '~/src/getPageQuery';
 import {pageQuery} from '~/types/pageQuery';
 
@@ -28,7 +28,8 @@ export default defineComponent({
         const route = useRoute()
         const router = useRouter()
         const query = computed(() => getPageQuery(route.value.query as pageQuery))
-        const nowSelect = query.value
+        const nowSelect = computed(() => query.value === 0 ? 1 : query.value)
+        const viewSelect = ref(nowSelect.value)
 
         const paginationLength = computed(() => {
             return Math.floor(props.articleCount / 5) + 1
@@ -42,19 +43,20 @@ export default defineComponent({
             router.push(`${nowPath}?page=${page}`)
         }
         const jumpToNext = () => {
-            if (nowSelect !== paginationLength.value) {
-                jumpTo(nowSelect + 1)
+            if (nowSelect.value <= paginationLength.value) {
+                jumpTo(nowSelect.value + 1)
             }
         }
         const jumpToPrev = () => {
-            if (nowSelect > 1) {
-                jumpTo(nowSelect + 1)
+            if (nowSelect.value >= 1) {
+                jumpTo(nowSelect.value - 1)
             }
         }
 
         return {
             paginationLength,
             nowSelect,
+            viewSelect,
             jumpTo,
             jumpToNext,
             jumpToPrev

@@ -2,7 +2,7 @@
     <v-container>
         <h3 class="ml-3 mb-3">タグ</h3>
         <v-divider class="mb-5"/>
-        <v-list v-for="tag in tags" :key="tag">
+        <v-list v-for="tag in tags" :key="tag" dense>
             <v-list-item>
                 <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none favorite-color">
                     {{tag}}

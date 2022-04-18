@@ -1,24 +1,20 @@
 <template>
     <v-container>
-        <v-card>
             <v-layout justify-center>
-                <v-avatar size="65%" class="mt-5">
+                <v-avatar size="65%" class="my-5">
                     <img src="~/assets/icon.jpg" alt="さわだのかお">
                 </v-avatar>
             </v-layout>
 
-            <v-card-title>
+            <h3 class="my-5">
                 <v-layout justify-center>
                     さわだ
                 </v-layout>
-            </v-card-title>
+            </h3>
 
-            <v-card-text>
-                <v-layout justify-center>
-                    ひまなときにかきます。
-                </v-layout>
-            </v-card-text>
-        </v-card>
+            <v-layout justify-center>
+                ひまなときにかきます。
+            </v-layout>
     </v-container>
 </template>
 
