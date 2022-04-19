@@ -43,7 +43,7 @@ import {article} from '~/types/article';
 export default defineComponent({
     name: 'MainArticle',
     components: {
-        surroundPagination
+        surroundPagination,
     },
     props: {
         article: {
@@ -111,6 +111,15 @@ export default defineComponent({
     img {
         max-width: min(50%, 400px);
         margin: 1rem 0;
+    }
+
+    blockquote {
+        border-left: 5px solid orange;
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        max-width: min(80%, 640px);
+        font-style: italic;
     }
 }
 </style>
