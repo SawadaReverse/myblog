@@ -20,6 +20,7 @@ export default defineComponent({
     },
     setup(){
         return articlePage()
-    }
+    },
+    head: {}
 });
 </script>

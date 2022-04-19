@@ -3,6 +3,7 @@ import {
     ref,
     useAsync,
     useContext,
+    useMeta,
     watch,
 } from '@nuxtjs/composition-api';
 import { articleHeaders } from '~/types/article';
@@ -57,6 +58,12 @@ export const tagPage = () => {
             return 1;
         }
     });
+
+    // タイトルを動的に設定する
+    const { title } = useMeta();
+    title.value = computed(() => {
+        return `タグ検索: ${tag}`;
+    }).value;
 
     isLoading.value = false;
 

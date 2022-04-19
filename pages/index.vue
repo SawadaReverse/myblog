@@ -21,6 +21,9 @@ export default defineComponent({
     },
     setup() {
         return indexPage();
+    },
+    head: {
+        title: 'トップページ'
     }
 });
 </script>

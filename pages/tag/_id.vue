@@ -25,7 +25,8 @@ export default defineComponent({
     },
     setup(){
         return tagPage();
-    }
+    },
+    head: {}
 });
 </script>
 
