@@ -6,17 +6,17 @@ tags: ['月報']
 ---
 
 さわだです。
-3日坊主とはよく言うもので、2postで更新が止まってしまいました。
+3 日坊主とはよく言うもので、2post で更新が止まってしまいました。
 **決して**何もしていなかったわけではないですよ。**決して**。
 
 というわけで覚えてる限り記事を書いていこうと思います。
 話題ごとにページを分けるので以下から飛んでください。
 
-1本目: [ThinkPad X240を買いました。](/articles/bought-thinkpad-x240)
+1 本目: [ThinkPad X240 を買いました。](/articles/bought-thinkpad-x240)
 
-2本目: [電工を完走した感想ですが(激ウマギャグ)](/articles/e-construction-license)
+2 本目: [電工を完走した感想ですが(激ウマギャグ)](/articles/e-construction-license)
 
-3本目: [ThinkCentre E73を買って壊しました。](/articles/bought-e73-and-broke)
+3 本目: [ThinkCentre E73 を買って壊しました。](/articles/bought-e73-and-broke)
 
-3本書いていたら4時間も経ってしまったので、今日はもう寝ます…
+3 本書いていたら 4 時間も経ってしまったので、今日はもう寝ます…
 これからはたくさん更新するから見て…

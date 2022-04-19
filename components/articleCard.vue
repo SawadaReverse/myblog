@@ -10,7 +10,7 @@
                 タグ:
                 <span v-for="tag in article.tags" :key="tag">
                     <nuxt-link :to="`/tag/${tag}`" class="text-decoration-none">
-                        {{tag}}
+                        {{ tag }}
                     </nuxt-link>
                 </span>
             </div>
@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, useContext} from '@nuxtjs/composition-api';
-import {articleHeaders} from '~/types/article';
+import { defineComponent, PropType, useContext } from '@nuxtjs/composition-api';
+import { articleHeaders } from '~/types/article';
 
 export default defineComponent({
     name: 'ArticleCard',
@@ -32,21 +32,21 @@ export default defineComponent({
         article: {
             type: Object as PropType<articleHeaders>,
             required: true,
-        }
+        },
     },
-    setup(props){
-        const context = useContext()
-        const {$dayjs} = context
-        const edited = props.article
-        edited.createdAt = $dayjs(edited.createdAt).format('YYYY/MM/DD HH:mm:ss')
+    setup(props) {
+        const context = useContext();
+        const { $dayjs } = context;
+        const edited = props.article;
+        edited.createdAt = $dayjs(edited.createdAt).format(
+            'YYYY/MM/DD HH:mm:ss'
+        );
 
         return {
-            edited
-        }
-    }
+            edited,
+        };
+    },
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
