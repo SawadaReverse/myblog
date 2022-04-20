@@ -15,14 +15,14 @@ Twitter を見ていると、公式アプリを使っていて死ぬほど苦し
 
 ## メリット
 
-- TLに広告が表示されない
-- 複数アカウントの管理が楽
+-   TL に広告が表示されない
+-   複数アカウントの管理が楽
 
 ## 条件
 
-- アカウントに何があっても自己責任と思える方
-- Android をお使いの方
-- Twitter で DM を酷使しない方
+-   アカウントに何があっても自己責任と思える方
+-   Android をお使いの方
+-   Twitter で DM を酷使しない方
 
 ## Twitter のヲタク向け
 
@@ -43,20 +43,20 @@ A. 公式 Consumer Key と公式 Consumer Secret を使います。
 アプリのインストールが終わったらアプリを開く。  
 画面中央の Twitter -> User Settings 押下
 
-![](https://public.sawada.pro/blog/twidere/twidere-1.jpg "step 1")
+![](https://public.sawada.pro/blog/twidere/twidere-1.jpg 'step 1')
 
 黄色で囲ったアイコンをタップすると写真中央の画面が出てくる。  
 認証方式を赤丸で囲った xAuth に変更する。  
 先ほど控えておいた Consumer Key を青線に貼り付け、 Consumer Secret を緑線に貼り付け  
 保存
 
-2022/3/3追記: デフォルトで _OAuth と同じ URL を使用する_ にチェックが入っているので、 **チェックを外してください** 。  
+2022/3/3 追記: デフォルトで _OAuth と同じ URL を使用する_ にチェックが入っているので、 **チェックを外してください** 。
 
-![](https://public.sawada.pro/blog/twidere/twidere-2.jpg "step 2")
+![](https://public.sawada.pro/blog/twidere/twidere-2.jpg 'step 2')
 
 上段に ID 、下段にパスワードを入力してログイン
 
-![](https://public.sawada.pro/blog/twidere/twidere-3.jpg "step 3")
+![](https://public.sawada.pro/blog/twidere/twidere-3.jpg 'step 3')
 
 これで公式 Twitter クライアントと同じ状態でログインできました。
 

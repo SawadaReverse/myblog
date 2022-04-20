@@ -7,21 +7,20 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from '@nuxtjs/composition-api';
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import articleCard from '~/components/articleCard.vue';
-import {article} from '~/types/article';
+import { article } from '~/types/article';
 
 export default defineComponent({
     name: 'ArticleList',
     components: {
-        articleCard
+        articleCard,
     },
     props: {
         articles: {
             type: Array as PropType<article[]>,
-            required: true
-        }
-    }
+            required: true,
+        },
+    },
 });
 </script>
-

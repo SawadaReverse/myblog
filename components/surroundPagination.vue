@@ -13,9 +13,7 @@
                     </nuxt-link>
                 </div>
                 <v-spacer />
-                <nuxt-link to="/">
-                    HOMEに戻る
-                </nuxt-link>
+                <nuxt-link to="/"> HOMEに戻る </nuxt-link>
                 <v-spacer />
                 <div v-if="surroundArticles[1].path">
                     <nuxt-link :to="surroundArticles[1].path">
@@ -29,13 +27,13 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import surroundPagination from '~/src/surroundPagination';
 
 export default defineComponent({
     name: 'SurroundPagination',
-    setup(){
-        return surroundPagination()
-    }
+    setup() {
+        return surroundPagination();
+    },
 });
 </script>

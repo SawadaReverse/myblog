@@ -1,16 +1,16 @@
 <template>
     <v-container>
-        <loading-indicator v-if="isLoading"/>
+        <loading-indicator v-if="isLoading" />
 
-        <main-article :article="article"/>
+        <main-article :article="article" />
     </v-container>
 </template>
 
 <script lang="ts">
-import {defineComponent} from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import mainArticle from '~/components/mainArticle.vue';
 import loadingIndicator from '~/components/loadingIndicator.vue';
-import {articlePage} from '~/src/articlePage'
+import { articlePage } from '~/src/articlePage';
 
 export default defineComponent({
     name: 'ArticlePage',
@@ -18,9 +18,9 @@ export default defineComponent({
         mainArticle,
         loadingIndicator,
     },
-    setup(){
-        return articlePage()
+    setup() {
+        return articlePage();
     },
-    head: {}
+    head: {},
 });
 </script>
