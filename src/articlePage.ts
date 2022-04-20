@@ -1,5 +1,12 @@
 import { NuxtError } from '@nuxt/types';
-import { computed, ref, useAsync, useContext } from '@nuxtjs/composition-api';
+import {
+    computed,
+    ref,
+    useAsync,
+    useContext,
+    useMeta,
+    watch,
+} from '@nuxtjs/composition-api';
 import { article } from '~/types/article';
 
 export const articlePage = () => {
@@ -67,6 +74,12 @@ export const articlePage = () => {
         const t = fetched.value;
         t.createdAt = convertedDate.value;
         return t;
+    });
+
+    // タイトルを動的に設定する
+    const { title } = useMeta();
+    watch(article, () => {
+        title.value = article.value.title;
     });
 
     isLoading.value = false;

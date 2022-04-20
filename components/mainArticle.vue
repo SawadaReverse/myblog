@@ -13,11 +13,10 @@
                 タグ:
                 <span v-for="tag in article.tags" :key="tag">
                     <nuxt-link :to="`/tag/${tag}`" class="favorite-color">
-                        {{tag}}
+                        {{ tag }}
                     </nuxt-link>
                 </span>
             </div>
-
         </v-card-subtitle>
 
         <v-divider />
@@ -31,19 +30,18 @@
         </v-card-text>
 
         <surround-pagination />
-
     </v-card>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from '@nuxtjs/composition-api';
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import surroundPagination from '~/components/surroundPagination.vue';
-import {article} from '~/types/article';
+import { article } from '~/types/article';
 
 export default defineComponent({
     name: 'MainArticle',
     components: {
-        surroundPagination
+        surroundPagination,
     },
     props: {
         article: {
@@ -61,11 +59,11 @@ export default defineComponent({
                     toc: [],
                     title: '',
                     description: '',
-                    tags: []
+                    tags: [],
                 };
-            }
-        }
-    }
+            },
+        },
+    },
 });
 </script>
 
@@ -111,6 +109,15 @@ export default defineComponent({
     img {
         max-width: min(50%, 400px);
         margin: 1rem 0;
+    }
+
+    blockquote {
+        border-left: 5px solid orange;
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        max-width: min(80%, 640px);
+        font-style: italic;
     }
 }
 </style>

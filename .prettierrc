@@ -1,6 +1,5 @@
 {
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 4,
-  "parser": "typescript"
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4
 }
