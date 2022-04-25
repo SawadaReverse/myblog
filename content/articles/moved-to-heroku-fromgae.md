@@ -1,7 +1,7 @@
 ---
 title: HerokuからGAEに移行した話
 description: むずかしかった(小並)
-createdAt: 2021/10/23 04:23:00
+createdAt: 2021/10/23 04:23:00 +09:00
 tags: ['技術']
 ---
 

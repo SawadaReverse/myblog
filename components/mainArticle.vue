@@ -119,5 +119,9 @@ export default defineComponent({
         max-width: min(80%, 640px);
         font-style: italic;
     }
+
+    .nuxt-content-highlight code {
+        all: unset !important;
+    }
 }
 </style>
