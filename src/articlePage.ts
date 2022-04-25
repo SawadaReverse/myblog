@@ -67,9 +67,7 @@ export const articlePage = () => {
             error(err);
             return '';
         }
-        return $dayjs(loaded.value.createdAt)
-            .locale('ja')
-            .format('YYYY/MM/DD HH:mm:ss');
+        return $dayjs(loaded.value.createdAt).format('YYYY/MM/DD HH:mm:ss');
     });
 
     const article = computed(() => {
