@@ -1,7 +1,7 @@
 ---
 title: ThinkPad X240を買いました。
 description: 手が滑った。
-createdAt: 2021/2/13 1:55:00
+createdAt: 2021/2/13 1:55:00 +09:00
 tags: ['技術', '日記']
 ---
 

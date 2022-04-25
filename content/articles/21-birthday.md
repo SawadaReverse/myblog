@@ -1,7 +1,7 @@
 ---
 title: 21歳、美少女になりました
 description: わ～い
-createdAt: 2022/3/17 20:15:00
+createdAt: 2022/3/17 20:15:00 +09:00
 tags: ['日記']
 ---
 
@@ -56,10 +56,3 @@ tags: ['日記']
 よろしくお願いします！！！！！！！！！！描いていただけたら泣いて喜びます！！！！！！！！！！！！！！！！！！
 
 それでは、また気が向いたときに！！！！！！
-
-<script>
-    import TweetEmbed from '../../components/tweet-embed';
-    export default {
-        components: {TweetEmbed}
-    };
-</script>
