@@ -1,7 +1,7 @@
 ---
 title: 古いMacbook Proをデュアルブートにした話。(第1話)
 description: 辛かった…
-createdAt: 2020/11/18 22:10:00
+createdAt: 2020/11/18 22:10:00 +09:00
 tags: ['技術', '日記']
 ---
 

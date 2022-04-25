@@ -1,7 +1,7 @@
 ---
 title: Xiaomiの体重計を買った
 description: ダイエットもはかどる
-createdAt: 2021/12/27 00:57:00
+createdAt: 2021/12/27 00:57:00 +09:00
 tags: ['日記']
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Seesaa ブログから Blogger に移行した
 description: 言うてBloggerもいまいちなんですけど
-createdAt: 2021/10/22 02:55:00
+createdAt: 2021/10/22 02:55:00 +09:00
 tags: ['技術']
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: フロントエンド初心者がNuxtをCompositon APIで学ぼうとしたら辛かった
 description: かなり実践的な知識がついた
-createdAt: 2022/4/21 20:52:00
+createdAt: 2022/4/21 20:52:00 +09:00
 tags: ['日記', '技術']
 ---
 
