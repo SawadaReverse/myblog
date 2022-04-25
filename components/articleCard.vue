@@ -39,7 +39,7 @@ export default defineComponent({
         const { $dayjs } = context;
         const edited = props.article;
         edited.createdAt = $dayjs(edited.createdAt).format(
-            'YYYY/MM/DD HH:mm:ss'
+            'YYYY/MM/DD HH:mm:ss Z'
         );
 
         return {
