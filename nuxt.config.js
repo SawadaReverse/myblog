@@ -75,9 +75,9 @@ export default {
     },
 
     dayjs: {
-        locales: ['ja'],
+        locales: ['en', 'ja'],
         defaultLocale: 'ja',
-        defaultTimeZone: 'Etc/GMT',
+        // defaultTimeZone: 'Asia/Tokyo',
         plugins: [
             'utc', // import 'dayjs/plugin/utc'
             'timezone', // import 'dayjs/plugin/timezone'
