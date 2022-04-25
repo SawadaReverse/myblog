@@ -1,7 +1,7 @@
 ---
 title: 21歳、美少女になりました
 description: わ～い
-createdAt: 2022/3/17 20:15:00 +09:00
+createdAt: 2022/3/17 20:15:00
 tags: ['日記']
 ---
 
