@@ -36,12 +36,14 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import surroundPagination from '~/components/surroundPagination.vue';
+import tweetEmbed from '~/components/tweetEmbed.vue';
 import { article } from '~/types/article';
 
 export default defineComponent({
     name: 'MainArticle',
     components: {
         surroundPagination,
+        tweetEmbed,
     },
     props: {
         article: {
