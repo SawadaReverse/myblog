@@ -38,9 +38,9 @@ export default defineComponent({
         const context = useContext();
         const { $dayjs } = context;
         const edited = props.article;
-        edited.createdAt = $dayjs(edited.createdAt).format(
-            'YYYY/MM/DD HH:mm:ss'
-        );
+        edited.createdAt = $dayjs(edited.createdAt)
+            .locale('ja')
+            .format('YYYY/MM/DD HH:mm:ss');
 
         return {
             edited,
