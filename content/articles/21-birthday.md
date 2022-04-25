@@ -56,10 +56,3 @@ tags: ['日記']
 よろしくお願いします！！！！！！！！！！描いていただけたら泣いて喜びます！！！！！！！！！！！！！！！！！！
 
 それでは、また気が向いたときに！！！！！！
-
-<script>
-    import TweetEmbed from '../../components/tweet-embed';
-    export default {
-        components: {TweetEmbed}
-    };
-</script>
