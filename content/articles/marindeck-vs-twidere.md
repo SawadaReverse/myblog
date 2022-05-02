@@ -30,7 +30,7 @@ Play ストアより引用
 
 > MarinDeck は、TweetDeck を Twitter for Android のような操作感で使えるようにするアプリです。
 >
-> 機能
+> 機能  
 > ・レイアウトの最適化  
 > ・Twitter for Android との連携  
 > ・使いやすいサイドメニュー  
