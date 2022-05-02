@@ -10,7 +10,7 @@ tags: ['日記', '技術']
 どうも、最近はあんまり Twitter を見ていないさわだです。  
 [MarinDeck](https://play.google.com/store/apps/details?id=online.hisubway.marindeck&hl=ja&gl=US) なる非公式な公式クライアントを知ったので、しばらく使ってみました。  
 私の大好きな Twidere と比較して行こうかと思います。  
-Twidere については [こちら](articles/twidere)
+Twidere については [こちら](twidere)
 
 ## 要約
 
