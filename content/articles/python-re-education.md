@@ -1,7 +1,7 @@
 ---
 title: PylintとBlackにビシバシ教育してもらった話
 description: あんなに文法が変わってるとは思わなかった
-createdAt: 2022/7/25 22:15:00 +09:00
+createdAt: 2022/7/25 23:00:00 +09:00
 tags: ['技術']
 ---
 
