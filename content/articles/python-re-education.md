@@ -22,7 +22,7 @@ tags: ['技術']
 
 お仕事でぷよぐやみんぐを始めてから、Linter や Formatter を気にし始めるようになりました。  
 Typescript を書いた際 eslint と Prettier に感動したからでしょう。  
-んで、せっかく Python 久しぶりに書くなら Linter と Fomatter を導入して書くか、という気持ちになりました。
+んで、せっかく Python 久しぶりに書くなら Linter と Fomatter を導入して書くか、という気持ちになりました。  
 なので、やったこととしては
 
 -   どんな Linter や Formatter があるか調べてみる
