@@ -2,7 +2,7 @@
 title: Twidereはいいぞ
 description: イチオシTwitterクライアントです。
 createdAt: 2022/1/10 01:47:00 +09:00
-tags: ['技術']
+tags: ['Twitter', 'Twidere']
 ---
 
 ## ごあいさつ

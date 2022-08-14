@@ -2,7 +2,7 @@
 title: 私がTwidereを使うときの設定
 description: 非公式Twitterクライアントの設定を紹介します。
 createdAt: 2022/08/15 02:00:00 +09:00
-tags: ['技術']
+tags: ['Twitter', 'Twidere']
 ---
 
 ## はじめに
