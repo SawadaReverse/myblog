@@ -2,7 +2,7 @@
 title: MarinDeckとTwidereを比べてみた
 description: どちらもイチオシではあるんですが、どちらも痒いところに手が届かない
 createdAt: 2022/5/3 02:45:00 +09:00
-tags: ['日記', '技術']
+tags: ['Twitter', 'Twidere', 'MarinDeck']
 ---
 
 ## ごあいさつ
