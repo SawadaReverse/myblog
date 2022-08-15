@@ -5,7 +5,7 @@
         </v-card-title>
 
         <v-card-subtitle>
-            {{ article.createdAt }}
+            {{ formattedCreatedAt }}
             <div v-if="article.tags">
                 タグ:
                 <span v-for="tag in article.tags" :key="tag">
@@ -37,16 +37,14 @@ export default defineComponent({
     setup(props) {
         const context = useContext();
         const { $dayjs } = context;
-        const edited = props.article;
-        edited.createdAt = $dayjs(edited.createdAt).format(
+        const createdAt = props.article.createdAt;
+        const formattedCreatedAt = $dayjs(createdAt).format(
             'YYYY/MM/DD HH:mm:ss'
         );
 
         return {
-            edited,
+            formattedCreatedAt,
         };
     },
 });
 </script>
-
-<style scoped></style>
