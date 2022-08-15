@@ -30,7 +30,7 @@ export default defineComponent({
             required: true,
         },
     },
-    setup(props, _) {
+    setup(props) {
         const route = useRoute();
         const router = useRouter();
         const query = computed(() =>
@@ -40,6 +40,9 @@ export default defineComponent({
         const viewSelect = ref(nowSelect.value);
 
         const paginationLength = computed(() => {
+            if (props.articleCount % 5 === 0) {
+                return props.articleCount / 5;
+            }
             return Math.floor(props.articleCount / 5) + 1;
         });
         const jumpTo = (page: number) => {
