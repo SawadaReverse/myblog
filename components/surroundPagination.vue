@@ -4,9 +4,9 @@
             前後の記事を取得できませんでした。
         </v-container>
 
-        <v-container>
-            <v-row v-if="!isErr">
-                <div v-if="surroundArticles[0].path !== ''">
+        <v-container v-if="!isErr">
+            <v-row>
+                <div v-if="surroundArticles[0].path">
                     ≪
                     <nuxt-link :to="surroundArticles[0].path">
                         前の記事へ
