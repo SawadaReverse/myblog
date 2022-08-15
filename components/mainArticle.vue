@@ -43,27 +43,16 @@ export default defineComponent({
     name: 'MainArticle',
     components: {
         surroundPagination,
+
+        // ツイートを埋め込むためのコンポーネント
+        // markdown で使うため、ts内では使われていない
+        // eslint-disable-next-line vue/no-unused-components
         tweetEmbed,
     },
     props: {
         article: {
             type: Object as PropType<article>,
             required: true,
-            default: () => {
-                return {
-                    dir: '',
-                    path: '',
-                    extension: '',
-                    slug: '',
-                    createdAt: '',
-                    updatedAt: '',
-                    body: {},
-                    toc: [],
-                    title: '',
-                    description: '',
-                    tags: [],
-                };
-            },
         },
     },
 });
