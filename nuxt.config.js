@@ -72,6 +72,10 @@ export default {
                 },
             },
         },
+        defaultAssets: {
+            icons: 'mdiSvg',
+        }
+        
     },
 
     dayjs: {
