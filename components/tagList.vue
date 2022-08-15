@@ -21,7 +21,6 @@ import {
     ref,
     useAsync,
     useContext,
-    useRouter,
 } from '@nuxtjs/composition-api';
 import { article, tagOnly } from '~/types/article';
 
@@ -29,13 +28,8 @@ export default defineComponent({
     name: 'TagList',
     setup() {
         const { $content } = useContext();
-        const router = useRouter();
         const tags = ref<string[]>([]);
         const apiResList = ref<tagOnly[]>([]);
-        const nowSelect = ref();
-        const jumpToTags = (tag: string) => {
-            router.push(`/tag/${tag}`);
-        };
 
         useAsync(async () => {
             const res = await $content('articles')
@@ -59,9 +53,7 @@ export default defineComponent({
         });
 
         return {
-            tags,
-            nowSelect,
-            jumpToTags,
+            tags
         };
     },
 });
