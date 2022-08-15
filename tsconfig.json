@@ -21,7 +21,8 @@
             "@types/node",
             "@nuxtjs/dayjs",
             "dayjs/plugin/relativeTime"
-        ]
+        ],
+        "jsx": "preserve"
     },
     "exclude": ["node_modules", ".nuxt", "dist"]
 }
