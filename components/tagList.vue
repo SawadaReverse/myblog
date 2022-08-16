@@ -57,7 +57,9 @@ export default defineComponent({
                 }
             });
 
-            tags.value = Array.from(new Set(tags.value));
+            tags.value = Array.from(new Set(tags.value)).sort((a, b) =>
+                a.localeCompare(b, 'ja')
+            );
         });
 
         const viewHeight = document.documentElement.clientHeight / 100;
