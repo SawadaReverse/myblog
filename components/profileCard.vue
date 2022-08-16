@@ -12,7 +12,7 @@
 
         <v-layout justify-center>
             <div class="text-align-center">
-                ひまなときにかきます。
+                ひまなときにかきます。<br>
                 <v-icon>{{ mdiTwitter }}</v-icon>
                 <a href="https://twitter.com/09224">@09224</a>
             </div>
