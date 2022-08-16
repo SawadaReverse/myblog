@@ -10,14 +10,26 @@
             <v-layout justify-center> さわだ </v-layout>
         </h3>
 
-        <v-layout justify-center> ひまなときにかきます。 </v-layout>
+        <v-layout justify-center>
+            <div class="text-align-center">
+                ひまなときにかきます。<br>
+                <v-icon>{{ mdiTwitter }}</v-icon>
+                <a href="https://twitter.com/09224">@09224</a>
+            </div>
+        </v-layout>
     </v-container>
 </template>
 
 <script lang="ts">
+import { mdiTwitter } from '@mdi/js';
 import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
     name: 'ProfileCard',
+    setup() {
+        return {
+            mdiTwitter,
+        };
+    },
 });
 </script>
