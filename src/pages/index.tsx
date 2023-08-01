@@ -1,62 +1,51 @@
+import { Box, Divider } from "@mui/material";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardActionArea from "@mui/material/CardActionArea";
-import { domainList } from "@/types/google_api_client/directory";
-import {
-  isSuccessResponse,
-  SuccessResponse,
-  isFailedResponse,
-} from "@/types/api/response";
+import { MicroCms } from "@/libs/microCms/microCms";
+import { Article } from "@/libs/microCms/types";
+import ArticleDescription from "@/components/ArticleDescription";
+import Paging from "@/components/Paging";
+
+type Props = {
+  content: Article[];
+  totalCount: number;
+  pageNumber: number;
+};
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  type PropType = {
-    data?: domainList;
-    message?: string;
-  };
-  const props: PropType = {};
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/domain`, {
-    headers: {
-      cookie: context.req.headers.cookie || "",
-    },
-  });
-  const responseBody = await response.json();
-  if (isSuccessResponse(responseBody)) {
-    // TODO: Generics つきの type guard がうまくいかない、要検討
-    const typedResponse = responseBody as SuccessResponse<domainList>;
-    props.data = typedResponse.data;
-  } else if (isFailedResponse(responseBody)) {
-    props.message = responseBody.message;
-  } else {
-    props.message = "Fatal error. Failed to get domains.";
+  let { page } = context.query;
+  if (!page || Array.isArray(page)) page = "1";
+
+  let pageNumber = parseInt(page);
+  if (isNaN(pageNumber)) {
+    pageNumber = 1;
   }
 
-  return { props };
+  const cms = new MicroCms();
+  const articles = await cms.getArticles(pageNumber);
+
+  const props: Props = {
+    content: articles.contents,
+    totalCount: articles.totalCount,
+    pageNumber,
+  };
+  return {
+    props,
+  };
 }
 
 export default function Home(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  if (!props.data && props.message) {
-    return (
-      <>
-        <div>{props.message}</div>
-      </>
-    );
-  }
-
   return (
     <>
-      {props.data!.domains.map((domain) => (
-        <Card key={domain.etag}>
-          <CardActionArea href={`/${domain.domainName}`}>
-            <CardHeader
-              title={domain.domainName}
-              subheader={`etag: ${domain.etag}`}
-            />
-          </CardActionArea>
-        </Card>
+      {props.content.map((article) => (
+        <Box key={article.id} sx={{ mb: 5 }}>
+          <ArticleDescription article={article} />
+          <Divider sx={{ my: 3 }} />
+        </Box>
       ))}
+
+      <Paging totalCount={props.totalCount} currentPage={props.pageNumber} />
     </>
   );
 }

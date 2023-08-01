@@ -1,7 +1,6 @@
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Layout } from "./_layout";
-import { Box } from "@mui/material";
+import "styles/global.scss";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
