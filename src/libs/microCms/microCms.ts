@@ -30,7 +30,7 @@ export class MicroCms {
       });
   };
 
-  public getArticles = async (page: number) => {
+  public getArticleList = async (page: number) => {
     const client = this.newClient();
     return client
       .get<MicroCmsResponse<Article[]>>({

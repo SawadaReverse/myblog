@@ -21,7 +21,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const cms = new MicroCms();
-  const articles = await cms.getArticles(pageNumber);
+  const articles = await cms.getArticleList(pageNumber);
 
   const props: Props = {
     content: articles.contents,
