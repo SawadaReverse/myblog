@@ -1,6 +1,5 @@
 import HeaderBar from "@/components/HeaderBar";
 import Profile from "@/components/Profile";
-import TagList from "@/components/TagList";
 import { Box, Grid } from "@mui/material";
 import { ReactElement } from "react";
 
@@ -25,7 +24,7 @@ export const Layout = ({ children }: LayoutProps) => (
           </Grid>
           <Grid item lg={3}>
             <Profile />
-            <TagList />
+            {/* <TagList /> */}
           </Grid>
         </Grid>
       </Box>
