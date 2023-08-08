@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
