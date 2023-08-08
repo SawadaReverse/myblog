@@ -1,5 +1,7 @@
+"use client";
+
 import { Box, Pagination } from "@mui/material";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type Props = {
   totalCount: number;
@@ -9,13 +11,13 @@ type Props = {
 export default function Paging(props: Props) {
   const router = useRouter();
   const onChangePagination = (_: React.ChangeEvent<unknown>, value: number) =>
-    router.push(`/?page=${value}`);
+    value === 1 ? router.push("/") : router.push(`/?page=${value}`);
   return (
     <>
       <Box sx={{ justifyContent: "center", display: "flex" }}>
         <Pagination
           count={props.totalCount / 10}
-          defaultPage={props.currentPage}
+          page={props.currentPage}
           onChange={onChangePagination}
         />
       </Box>

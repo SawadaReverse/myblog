@@ -1,4 +1,4 @@
-import { Tag } from "@/libs/microCms/types";
+import { Tag } from "@/app/_libs/microCms/types";
 import { Tag as TagIcon } from "@mui/icons-material";
 import { Chip } from "@mui/material";
 
@@ -16,7 +16,7 @@ export default function TagArray(props: Props) {
           label={`${tag.name}`}
           href={`/tag/${tag.name}`}
           key={tag.id}
-          sx={{ mr: 2 }}
+          sx={{ mr: 2, my: 1 }}
           clickable
         />
       ))}
