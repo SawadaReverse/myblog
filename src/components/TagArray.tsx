@@ -1,4 +1,4 @@
-import { Tag } from "@/app/_libs/microCms/types";
+import { Tag } from "@/libs/microCms/types";
 import { Tag as TagIcon } from "@mui/icons-material";
 import { Chip } from "@mui/material";
 

@@ -1,9 +1,9 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { MicroCms } from "@/app/_libs/microCms/microCms";
+import { MicroCms } from "@/libs/microCms/microCms";
 import { Box } from "@mui/material";
-import ArticleDescription from "@/app/_components/ArticleDescription";
+import ArticleDescription from "@/components/ArticleDescription";
 import "highlight.js/styles/github-dark.css";
 
 const getArticle = async (path: string) => {

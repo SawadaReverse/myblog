@@ -1,4 +1,4 @@
-import { MicroCms } from "@/app/_libs/microCms/microCms";
+import { MicroCms } from "@/libs/microCms/microCms";
 import { Box, Typography } from "@mui/material";
 import TagArray from "./TagArray";
 

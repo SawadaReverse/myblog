@@ -1,16 +1,16 @@
 import { Box, Divider } from "@mui/material";
-import ArticleDescription from "@/app/_components/ArticleDescription";
-import Paging from "@/app/_components/Paging";
-import { MicroCms } from "@/app/_libs/microCms/microCms";
+import ArticleDescription from "@/components/ArticleDescription";
+import Paging from "@/components/Paging";
+import { MicroCms } from "@/libs/microCms/microCms";
 
-export default async function Home({
-  searchParams,
-}: {
+type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const pageParam = searchParams["page"];
+};
+
+export default async function Home(props: Props) {
+  const pageParam = props.searchParams["page"];
   const page =
-    !Array.isArray(pageParam) && !Number.isNaN(parseInt(pageParam))
+    pageParam && !Array.isArray(pageParam) && !Number.isNaN(parseInt(pageParam))
       ? parseInt(pageParam)
       : 1;
 

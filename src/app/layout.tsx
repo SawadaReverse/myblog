@@ -1,9 +1,9 @@
 import { Box, Grid } from "@mui/material";
 import { Inter } from "next/font/google";
-import HeaderBar from "@/app/_components/HeaderBar";
-import Profile from "@/app/_components/Profile";
+import HeaderBar from "@/components/HeaderBar";
+import Profile from "@/components/Profile";
 import "./global.scss";
-import TagList from "@/app/_components/TagList";
+import TagList from "@/components/TagList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,31 +19,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <html lang="ja">
-        <body className={inter.className}>
-          <Box sx={{ width: { xs: "90%", md: "70%" }, m: "auto" }}>
-            <HeaderBar />
-            <Box sx={{ mt: 5 }}>
-              <Grid
-                container
-                spacing={5}
-                flexWrap="wrap"
-                justifyContent="space-around"
-                alignContent="flex-start"
-              >
-                <Grid item lg={7}>
-                  {children}
-                </Grid>
-                <Grid item lg={3}>
-                  <Profile />
-                  <TagList />
-                </Grid>
+    <html lang="ja">
+      <body className={inter.className}>
+        <Box sx={{ width: { xs: "90%", md: "70%" }, m: "auto" }}>
+          <HeaderBar />
+          <Box sx={{ mt: 5 }}>
+            <Grid
+              container
+              spacing={5}
+              flexWrap="wrap"
+              justifyContent="space-around"
+              alignContent="flex-start"
+            >
+              <Grid item lg={7}>
+                {children}
               </Grid>
-            </Box>
+              <Grid item lg={3}>
+                <Profile />
+                <TagList />
+              </Grid>
+            </Grid>
           </Box>
-        </body>
-      </html>
-    </>
+        </Box>
+      </body>
+    </html>
   );
 }

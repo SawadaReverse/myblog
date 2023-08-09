@@ -1,6 +1,6 @@
-import { Article } from "@/app/_libs/microCms/types";
+import { Article } from "@/libs/microCms/types";
 import { Box, Typography, Link } from "@mui/material";
-import TagArray from "@/app/_components/TagArray";
+import TagArray from "./TagArray";
 
 type Props = {
   article: Article;
