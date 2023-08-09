@@ -56,6 +56,30 @@ export class MicroCms {
       });
   };
 
+  public searchArticle = async (keyword: string) => {
+    const client = this.newClient();
+    return client
+      .get<MicroCmsResponse<Article[]>>({
+        endpoint: "articles",
+        queries: {
+          q: keyword,
+          fields: [
+            "title",
+            "path",
+            "publishedAt",
+            "tags",
+            "description",
+            "id",
+          ].join(","),
+          orders: "-publishedAt",
+        },
+      })
+      .then((articles) => articles)
+      .catch((error) => {
+        throw error;
+      });
+  };
+
   public getTags = async () => {
     const client = this.newClient();
     return client
