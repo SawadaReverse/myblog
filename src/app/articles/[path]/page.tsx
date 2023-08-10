@@ -1,32 +1,49 @@
+"use client";
+
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { MicroCms } from "@/libs/microCms/microCms";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import ArticleDescription from "@/components/ArticleDescription";
 import "highlight.js/styles/github-dark.css";
-
-const getArticle = async (path: string) => {
-  const cms = new MicroCms();
-  return await cms.getArticle(path);
-};
+import useSWR from "swr";
+import { ApiResponse } from "@/app/api/types/types";
+import { fetcher } from "@/libs/swrFetcher/fetcher";
+import { Article } from "@/libs/microCms/types";
 
 export default async function ArticlePage({
   params,
 }: {
   params: { path: string };
 }) {
-  const article = await getArticle(params.path);
+  const { data, error, isLoading } = useSWR<ApiResponse<Article>>(
+    `/api/articles/${params.path}`,
+    fetcher
+  );
+  if (isLoading || !data || !data.result)
+    return (
+      <>
+        <Box sx={{ textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
+      </>
+    );
+  if (!!error) {
+    throw new Error(error.message);
+  }
+  if (!!data.message) {
+    throw new Error(data.message);
+  }
   return (
     <>
-      <ArticleDescription article={article} />
+      <ArticleDescription article={data.result} />
 
       <Box>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight]}
         >
-          {article.body}
+          {data.result.body}
         </ReactMarkdown>
       </Box>
     </>
