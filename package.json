@@ -27,9 +27,10 @@
     "react-markdown": "^8.0.7",
     "rehype-highlight": "^6.0.0",
     "remark-gfm": "^3.0.1",
-    "typescript": "5.1.6"
-  },
-  "devDependencies": {
+    "swr": "^2.2.0",
+    "typescript": "5.1.6",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "sass": "^1.64.2"
-  }
+  },
+  "devDependencies": {}
 }
