@@ -1,4 +1,4 @@
-import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import { MicroCMSContentId, MicroCMSDate } from 'microcms-js-sdk';
 
 export type Tag = {
   name: string;

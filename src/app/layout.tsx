@@ -1,11 +1,11 @@
-import { Box, Grid } from "@mui/material";
-import { Inter } from "next/font/google";
-import HeaderBar from "@/components/HeaderBar";
-import Profile from "@/components/Profile";
-import "./global.scss";
-import TagList from "@/components/TagList";
+import { Box, Grid } from '@mui/material';
+import { Inter } from 'next/font/google';
+import HeaderBar from '@/components/HeaderBar';
+import Profile from '@/components/Profile';
+import './global.scss';
+import TagList from '@/components/TagList';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 // TODO: metadata考える
 // export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <Box sx={{ width: { xs: "90%", md: "70%" }, m: "auto" }}>
+        <Box sx={{ width: { xs: '90%', md: '70%' }, m: 'auto' }}>
           <HeaderBar />
           <Box sx={{ mt: 5 }}>
             <Grid

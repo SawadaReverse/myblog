@@ -1,20 +1,20 @@
-import { ApiResponse } from "@/app/api/types/types";
-import { MicroCms } from "@/libs/microCms/microCms";
-import { Article, GetArticleListParams } from "@/libs/microCms/types";
-import { StatusCodes } from "http-status-codes";
-import { MicroCMSListResponse } from "microcms-js-sdk";
-import { NextRequest } from "next/server";
+import { ApiResponse } from '@/app/api/types/types';
+import { MicroCms } from '@/libs/microCms/microCms';
+import { Article, GetArticleListParams } from '@/libs/microCms/types';
+import { StatusCodes } from 'http-status-codes';
+import { MicroCMSListResponse } from 'microcms-js-sdk';
+import { NextRequest } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { path: string } }
+  context: { params: { path: string } },
 ) {
   const { path } = context.params;
   const params = request.nextUrl.searchParams;
-  const page = params.get("page");
+  const page = params.get('page');
   if (!page || Number.isNaN(parseInt(page))) {
-    const response: ApiResponse<{}> = {
-      message: "invalid request",
+    const response: ApiResponse<Record<string, never>> = {
+      message: 'invalid request',
     };
     return new Response(JSON.stringify(response), {
       status: StatusCodes.BAD_REQUEST,
@@ -24,7 +24,7 @@ export async function GET(
   const query: GetArticleListParams = {
     tag: path,
     limit: 10,
-    fields: ["title", "description", "publishedAt", "tags"],
+    fields: ['title', 'description', 'publishedAt', 'tags'],
   };
   if (parseInt(page) > 1) {
     // TODO: 定数化
@@ -37,14 +37,14 @@ export async function GET(
     .then((result: MicroCMSListResponse<Article>) => {
       const response: ApiResponse<MicroCMSListResponse<Article>> = {
         result,
-        message: "",
+        message: '',
       };
 
       return new Response(JSON.stringify(response));
     })
     .catch((e) => {
-      const response: ApiResponse<{}> = {
-        message: e.message ?? "internal server error",
+      const response: ApiResponse<Record<string, never>> = {
+        message: e.message ?? 'internal server error',
       };
 
       return new Response(JSON.stringify(response), {

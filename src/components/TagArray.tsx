@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Tag } from "@/libs/microCms/types";
-import { Tag as TagIcon } from "@mui/icons-material";
-import { Chip } from "@mui/material";
+import { Tag } from '@/libs/microCms/types';
+import { Tag as TagIcon } from '@mui/icons-material';
+import { Chip } from '@mui/material';
 
 type Props = {
   tags: Tag[];

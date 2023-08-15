@@ -1,9 +1,9 @@
-import { MicroCms } from "@/libs/microCms/microCms";
-import { Box, Typography } from "@mui/material";
-import TagArray from "./TagArray";
+import { MicroCms } from '@/libs/microCms/microCms';
+import { Box, Typography } from '@mui/material';
+import TagArray from './TagArray';
 
 const getTags = async () => {
-  "use server";
+  'use server';
 
   const cms = new MicroCms();
   return await cms.getTagLists();

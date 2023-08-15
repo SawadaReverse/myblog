@@ -1,12 +1,12 @@
-import { MicroCms } from "@/libs/microCms/microCms";
-import { Article } from "@/libs/microCms/types";
-import { NextRequest } from "next/server";
-import { ApiResponse } from "../../types/types";
-import { StatusCodes } from "http-status-codes";
+import { MicroCms } from '@/libs/microCms/microCms';
+import { Article } from '@/libs/microCms/types';
+import { NextRequest } from 'next/server';
+import { ApiResponse } from '../../types/types';
+import { StatusCodes } from 'http-status-codes';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: { id: string } },
 ) {
   const { id } = context.params;
 
@@ -16,14 +16,14 @@ export async function GET(
     .then((result: Article) => {
       const response: ApiResponse<Article> = {
         result,
-        message: "",
+        message: '',
       };
 
       return new Response(JSON.stringify(response));
     })
     .catch((e) => {
-      const response: ApiResponse<{}> = {
-        message: e.message ?? "internal server error",
+      const response: ApiResponse<Record<string, never>> = {
+        message: e.message ?? 'internal server error',
       };
 
       return new Response(JSON.stringify(response), {

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Box, Link, Toolbar, Typography } from "@mui/material";
+import { Box, Link, Toolbar, Typography } from '@mui/material';
 
 export default function HeaderBar() {
   return (
@@ -10,7 +10,7 @@ export default function HeaderBar() {
           <Typography
             variant="h4"
             component="div"
-            sx={{ flexGrow: 1, textAlign: "center" }}
+            sx={{ flexGrow: 1, textAlign: 'center' }}
           >
             <Link href="/" underline="none" color="inherit">
               さわだ見聞録

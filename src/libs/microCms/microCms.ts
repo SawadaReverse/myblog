@@ -2,21 +2,21 @@ import {
   MicroCMSListResponse,
   MicroCMSQueries,
   createClient,
-} from "microcms-js-sdk";
-import { Article, GetArticleListParams, Tag } from "./types";
+} from 'microcms-js-sdk';
+import { Article, GetArticleListParams, Tag } from './types';
 
 export class MicroCms {
   private apiKey: string;
   constructor() {
     this.apiKey = process.env.MICROCMS_API_KEY;
     if (!this.apiKey) {
-      throw new Error("MICROCMS_API_KEY is not defined");
+      throw new Error('MICROCMS_API_KEY is not defined');
     }
   }
 
   private newClient = () => {
     return createClient({
-      serviceDomain: "sawada",
+      serviceDomain: 'sawada',
       apiKey: this.apiKey,
     });
   };
@@ -37,19 +37,19 @@ export class MicroCms {
     const requestQueries: MicroCMSQueries = {
       limit: params.limit,
       offset: params.offset,
-      fields: params.fields?.join(","),
-      orders: params.orders ?? "-publishedAt",
+      fields: params.fields?.join(','),
+      orders: params.orders ?? '-publishedAt',
       filters: params.filters,
       q: params.q,
     };
-    if (!!params.tag) {
+    if (params.tag) {
       requestQueries.filters = `tags[contains]${params.tag}`;
     }
 
     const client = this.newClient();
     return client
       .get<MicroCMSListResponse<Article>>({
-        endpoint: "articles",
+        endpoint: 'articles',
         // TODO: ページあたりの表示件数を定数にする
         queries: requestQueries,
       })
@@ -63,18 +63,18 @@ export class MicroCms {
     const client = this.newClient();
     return client
       .get<MicroCMSListResponse<Article>>({
-        endpoint: "articles",
+        endpoint: 'articles',
         queries: {
           q: keyword,
           fields: [
-            "title",
-            "path",
-            "publishedAt",
-            "tags",
-            "description",
-            "id",
-          ].join(","),
-          orders: "-publishedAt",
+            'title',
+            'path',
+            'publishedAt',
+            'tags',
+            'description',
+            'id',
+          ].join(','),
+          orders: '-publishedAt',
         },
       })
       .then((articles) => articles)
@@ -86,7 +86,7 @@ export class MicroCms {
   public getTagLists = async () => {
     const client = this.newClient();
     return client
-      .get<MicroCMSListResponse<Tag>>({ endpoint: "tags" })
+      .get<MicroCMSListResponse<Tag>>({ endpoint: 'tags' })
       .then((tags) => tags)
       .catch((error) => {
         throw error;

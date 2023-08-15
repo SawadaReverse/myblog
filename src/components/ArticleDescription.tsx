@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Article } from "@/libs/microCms/types";
-import { Box, Typography, Link } from "@mui/material";
-import TagArray from "./TagArray";
+import { Article } from '@/libs/microCms/types';
+import { Box, Typography, Link } from '@mui/material';
+import TagArray from './TagArray';
 
 type Props = {
   article: Article;
