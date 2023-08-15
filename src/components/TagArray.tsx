@@ -16,7 +16,7 @@ export default function TagArray(props: Props) {
           component="a"
           icon={<TagIcon />}
           label={`${tag.name}`}
-          href={`/tag/${tag.name}`}
+          href={`/tag/${tag.id}`}
           key={tag.id}
           sx={{ mr: 2, my: 1 }}
           clickable
