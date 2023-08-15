@@ -6,7 +6,7 @@ const getTags = async () => {
   "use server";
 
   const cms = new MicroCms();
-  return await cms.getTags();
+  return await cms.getTagLists();
 };
 
 export default async function TagList() {
