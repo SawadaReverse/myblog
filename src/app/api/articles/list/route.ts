@@ -22,9 +22,9 @@ export async function GET(request: NextRequest) {
     limit: 10,
     fields: ["id", "title", "description", "publishedAt", "tags"],
   };
-  if (parseInt(page) > 1) {
+  if (parseInt(page) - 1 > 0) {
     // TODO: 定数化
-    query.offset = 10 * parseInt(page);
+    query.offset = 10 * (parseInt(page) - 1);
   }
 
   const cms = new MicroCms();
