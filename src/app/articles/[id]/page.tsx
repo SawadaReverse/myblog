@@ -8,16 +8,12 @@ import ArticleDescription from "@/components/ArticleDescription";
 import "highlight.js/styles/github-dark.css";
 import useSWR from "swr";
 import { ApiResponse } from "@/app/api/types/types";
-import { fetcher } from "@/libs/swrFetcher/fetcher";
+import { fetcher } from "@/libs/swr/fetcher";
 import { Article } from "@/libs/microCms/types";
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: { path: string };
-}) {
+export default function ArticlePage({ params }: { params: { id: string } }) {
   const { data, error, isLoading } = useSWR<ApiResponse<Article>>(
-    `/api/articles/${params.path}`,
+    `/api/articles/${params.id}`,
     fetcher
   );
   if (isLoading || !data || !data.result)
