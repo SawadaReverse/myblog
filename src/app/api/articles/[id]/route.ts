@@ -6,13 +6,13 @@ import { StatusCodes } from "http-status-codes";
 
 export async function GET(
   request: NextRequest,
-  context: { params: { path: string } }
+  context: { params: { id: string } }
 ) {
-  const { path } = context.params;
+  const { id } = context.params;
 
   const cms = new MicroCms();
   return cms
-    .getArticle(path)
+    .getArticle(id)
     .then((result: Article) => {
       const response: ApiResponse<Article> = {
         result,
