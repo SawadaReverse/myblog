@@ -1,8 +1,9 @@
 import { MicroCms } from "@/libs/microCms/microCms";
-import { MicroCmsResponse, Article } from "@/libs/microCms/types";
+import { Article } from "@/libs/microCms/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ApiResponse } from "@/app/api/types/types";
 import { StatusCodes } from "http-status-codes";
+import { MicroCMSListResponse } from "microcms-js-sdk";
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { q } = req.query;
@@ -15,9 +16,10 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const query = q.replaceAll(" ", ",");
   const cms = new MicroCms();
-  cms.searchArticle(query).then((result: MicroCmsResponse<Article[]>) => {
-    const response: ApiResponse<Article[]> = {
+  cms.searchArticle(query).then((result: MicroCMSListResponse<Article>) => {
+    const response: ApiResponse<MicroCMSListResponse<Article>> = {
       result,
+      message: "",
     };
     res.status(StatusCodes.OK).json(response);
   });

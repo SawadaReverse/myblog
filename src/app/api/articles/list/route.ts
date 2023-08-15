@@ -1,8 +1,9 @@
 import { MicroCms } from "@/libs/microCms/microCms";
-import { Article, MicroCmsResponse } from "@/libs/microCms/types";
+import { Article, GetArticleListParams } from "@/libs/microCms/types";
 import { ApiResponse } from "@/app/api/types/types";
 import { StatusCodes } from "http-status-codes";
 import { NextRequest } from "next/server";
+import { MicroCMSListResponse } from "microcms-js-sdk";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -15,11 +16,22 @@ export async function GET(request: NextRequest) {
       status: StatusCodes.BAD_REQUEST,
     });
   }
+
+  const query: GetArticleListParams = {
+    // TODO: 定数化
+    limit: 10,
+    fields: ["id", "title", "description", "publishedAt", "tags"],
+  };
+  if (parseInt(page) > 1) {
+    // TODO: 定数化
+    query.offset = 10 * parseInt(page);
+  }
+
   const cms = new MicroCms();
   return cms
-    .getArticleList(parseInt(page))
-    .then((result: MicroCmsResponse<Article[]>) => {
-      const response: ApiResponse<MicroCmsResponse<Article[]>> = {
+    .getArticleList(query)
+    .then((result: MicroCMSListResponse<Article>) => {
+      const response: ApiResponse<MicroCMSListResponse<Article>> = {
         result,
         message: "",
       };

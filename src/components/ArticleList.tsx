@@ -1,25 +1,15 @@
 "use client";
 
-import { Box, CircularProgress, Divider } from "@mui/material";
-import ArticleDescription from "@/components/ArticleDescription";
-import Paging from "@/components/Paging";
-import useSWR from "swr";
-import { ApiResponse } from "./api/types/types";
+import { ApiResponse } from "@/app/api/types/types";
 import { Article } from "@/libs/microCms/types";
 import { fetcher } from "@/libs/swr/fetcher";
+import { Box, CircularProgress, Divider } from "@mui/material";
 import { MicroCMSListResponse } from "microcms-js-sdk";
+import useSWR from "swr";
+import ArticleDescription from "./ArticleDescription";
+import Paging from "./Paging";
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default function Home(props: Props) {
-  const pageParam = props.searchParams["page"];
-  const page =
-    pageParam && !Array.isArray(pageParam) && !Number.isNaN(parseInt(pageParam))
-      ? parseInt(pageParam)
-      : 1;
-
+export default function ArticleList(url: string, page: number) {
   const { data, error, isLoading } = useSWR<
     ApiResponse<MicroCMSListResponse<Article>>,
     Error
