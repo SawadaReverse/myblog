@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Link, Toolbar, Typography } from "@mui/material";
 
 export default function HeaderBar() {
