@@ -92,4 +92,14 @@ export class MicroCms {
         throw error;
       });
   };
+
+  public getTag = async (id: string) => {
+    const client = this.newClient();
+    return client
+      .get<Tag>({ endpoint: `tags/${id}` })
+      .then((tag) => tag)
+      .catch((error) => {
+        throw error;
+      });
+  };
 }
