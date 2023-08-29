@@ -37,7 +37,7 @@ export default function ArticleList(url: string, page: number) {
         </Box>
       ))}
 
-      <Paging totalCount={data.result.totalCount} currentPage={page} />
+      <Paging totalCount={data.result.totalCount} />
     </>
   );
 }
