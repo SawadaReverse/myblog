@@ -5,6 +5,8 @@ import Profile from '@/components/Profile';
 import './global.scss';
 import TagList from '@/components/TagList';
 
+export const runtime = 'edge';
+
 const inter = Inter({ subsets: ['latin'] });
 
 // TODO: metadata考える
