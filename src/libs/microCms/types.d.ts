@@ -1,26 +1,16 @@
 import { MicroCMSContentId, MicroCMSDate } from 'microcms-js-sdk';
 
-export type Tag = {
+export type MicroCMSTag = {
   name: string;
 } & MicroCMSContentId &
   MicroCMSDate;
 
-export type Article = {
+export type MicroCMSArticle = {
   title: string;
   description: string;
   publishedAt: string;
   body: string;
-  tags: Tag[];
+  tags: MicroCMSTag[];
   path: string;
 } & MicroCMSContentId &
   MicroCMSDate;
-
-export type GetArticleListParams = {
-  limit: number;
-  offset?: number;
-  fields?: string[];
-  tag?: string;
-  orders?: string;
-  filters?: string;
-  q?: string;
-};

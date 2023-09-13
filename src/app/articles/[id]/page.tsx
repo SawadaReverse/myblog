@@ -1,46 +1,28 @@
-'use client';
-
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import ArticleDescription from '@/components/ArticleDescription';
 import 'highlight.js/styles/github-dark.css';
-import useSWR from 'swr';
-import { ApiResponse } from '@/app/api/types/types';
-import { fetcher } from '@/libs/swr/fetcher';
-import { Article } from '@/libs/microCms/types';
+import { apiFetch } from '@/libs/api-fetcher/fetcher';
+import { Article } from '@/app/api/types/types';
+import MarkdownParser from '@/components/MarkdownParser';
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
-  const { data, error, isLoading } = useSWR<ApiResponse<Article>>(
-    `/api/articles/${params.id}`,
-    fetcher,
-  );
-  if (isLoading || !data || !data.result)
-    return (
-      <>
-        <Box sx={{ textAlign: 'center' }}>
-          <CircularProgress />
-        </Box>
-      </>
-    );
-  if (error) {
-    throw new Error(error.message);
+type Props = {
+  params: { id: string };
+};
+
+export default async function ArticlePage(props: Props) {
+  const res = await apiFetch(`/api/articles/${props.params.id}`);
+  if (!res.ok) {
+    console.dir(res, { depth: null });
+    throw new Error('failed to fetch articles');
   }
-  if (data.message) {
-    throw new Error(data.message);
-  }
+
+  const data = (await res.json()) as Article;
   return (
     <>
-      <ArticleDescription article={data.result} />
+      <ArticleDescription article={data} />
 
       <Box>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
-        >
-          {data.result.body}
-        </ReactMarkdown>
+        <MarkdownParser>{data.body}</MarkdownParser>
       </Box>
     </>
   );

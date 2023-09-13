@@ -3,15 +3,18 @@ import {
   MicroCMSQueries,
   createClient,
 } from 'microcms-js-sdk';
-import { Article, GetArticleListParams, Tag } from './types';
+import { MicroCMSArticle, MicroCMSTag } from './types';
+import { GetArticleListQuery } from '@/app/api/types/types';
 
 export class MicroCms {
   private apiKey: string;
   constructor() {
-    this.apiKey = process.env.MICROCMS_API_KEY;
-    if (!this.apiKey) {
+    const key = process.env.MICROCMS_API_KEY;
+    if (!key) {
       throw new Error('MICROCMS_API_KEY is not defined');
     }
+
+    this.apiKey = key;
   }
 
   private newClient = () => {
@@ -24,7 +27,7 @@ export class MicroCms {
   public getArticle = async (id: string) => {
     const client = this.newClient();
     return client
-      .get<Article>({
+      .get<MicroCMSArticle>({
         endpoint: `articles/${id}`,
       })
       .then((article) => article)
@@ -33,14 +36,13 @@ export class MicroCms {
       });
   };
 
-  public getArticleList = async (params: GetArticleListParams) => {
+  public getArticleList = async (params: GetArticleListQuery) => {
     const requestQueries: MicroCMSQueries = {
       limit: params.limit,
       offset: params.offset,
-      fields: params.fields?.join(','),
+      fields: params.fields,
       orders: params.orders ?? '-publishedAt',
-      filters: params.filters,
-      q: params.q,
+      filters: params.tag,
     };
     if (params.tag) {
       requestQueries.filters = `tags[contains]${params.tag}`;
@@ -48,7 +50,7 @@ export class MicroCms {
 
     const client = this.newClient();
     return client
-      .get<MicroCMSListResponse<Article>>({
+      .get<MicroCMSListResponse<MicroCMSArticle>>({
         endpoint: 'articles',
         // TODO: ページあたりの表示件数を定数にする
         queries: requestQueries,
@@ -62,7 +64,7 @@ export class MicroCms {
   public searchArticle = async (keyword: string) => {
     const client = this.newClient();
     return client
-      .get<MicroCMSListResponse<Article>>({
+      .get<MicroCMSListResponse<MicroCMSArticle>>({
         endpoint: 'articles',
         queries: {
           q: keyword,
@@ -86,7 +88,7 @@ export class MicroCms {
   public getTagLists = async () => {
     const client = this.newClient();
     return client
-      .get<MicroCMSListResponse<Tag>>({ endpoint: 'tags' })
+      .get<MicroCMSListResponse<MicroCMSTag>>({ endpoint: 'tags' })
       .then((tags) => tags)
       .catch((error) => {
         throw error;
@@ -96,7 +98,7 @@ export class MicroCms {
   public getTag = async (id: string) => {
     const client = this.newClient();
     return client
-      .get<Tag>({ endpoint: `tags/${id}` })
+      .get<MicroCMSTag>({ endpoint: `tags/${id}` })
       .then((tag) => tag)
       .catch((error) => {
         throw error;

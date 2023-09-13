@@ -1,33 +1,29 @@
 import { MicroCms } from '@/libs/microCms/microCms';
-import { Article } from '@/libs/microCms/types';
+import { MicroCMSArticle } from '@/libs/microCms/types';
 import { NextRequest } from 'next/server';
-import { ApiResponse } from '../../types/types';
 import { StatusCodes } from 'http-status-codes';
+import { Article, ErrorResponse } from '../../types/types';
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } },
-) {
+export async function GET(_: NextRequest, context: { params: { id: string } }) {
   const { id } = context.params;
 
   const cms = new MicroCms();
   return cms
     .getArticle(id)
-    .then((result: Article) => {
-      const response: ApiResponse<Article> = {
-        result,
-        message: '',
+    .then((result: MicroCMSArticle) => {
+      const response: Article = {
+        ...result,
       };
-
       return new Response(JSON.stringify(response));
     })
     .catch((e) => {
-      const response: ApiResponse<Record<string, never>> = {
+      const response: ErrorResponse = {
         message: e.message ?? 'internal server error',
+        code: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
       };
 
       return new Response(JSON.stringify(response), {
-        status: StatusCodes.INTERNAL_SERVER_ERROR,
+        status: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
       });
     });
 }

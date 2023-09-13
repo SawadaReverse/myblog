@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  title: sawada blog api
+  version: 0.1.0
+servers:
+  - url: 'https://blog.sawada.pro/api'
+tags:
+  - name: article
+    description: blog articles
+  - name: tag
+    description: grouping articles
+paths:
+  /articles/{id}:
+    get:
+      tags:
+        - article
+      summary: get an article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '404':
+          description: article not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: internal server error (ex. failed to fetch article from microCMS)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /articles/list:
+    post:
+      tags:
+        - article
+      summary: get article list by condition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetArticleListQuery'
+        required: true
+      responses:
+        '200':
+          description: success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+                  totalCount:
+                    type: integer
+                    example: 10
+        '400':
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: internal server error (ex. failed to fetch article from microCMS)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /tags/{id}:
+    get:
+      tags:
+        - 'tag'
+      summary: get a tag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '500':
+          description: internal server error (ex. failed to fetch article from microCMS)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /tags/list:
+    get:
+      tags:
+        - 'tag'
+      summary: get all tags
+      parameters: []
+      responses:
+        '200':
+          description: success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                  totalCount:
+                    type: integer
+                    example: 10
+        '500':
+          description: internal server error (ex. failed to fetch article from microCMS)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+          example: first-step
+        title:
+          type: string
+          example: はじめのいっぽ
+        description:
+          type: string
+          example: 最初の投稿です。
+        body:
+          type: string
+          example: はじめまして。さわだと申します。\n\n「ハマったこと、悩んだこと、愚痴。」…
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        publishedAt:
+          type: string
+          format: date-time
+          example: 2020-11-14T13:20:00.000Z
+      required:
+        - id
+        - title
+        - description
+        - body
+        - tags
+        - createdAt
+        - publishedAt
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 日記
+        id:
+          type: string
+          example: diaries
+      required:
+        - id
+        - name
+        - createdAt
+        - publishedAt
+    GetArticleListQuery:
+      externalDocs:
+        url: https://document.microcms.io/content-api/get-list-contents
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 10
+        offset:
+          type: integer
+          example: 10
+        fields:
+          type: array
+          items:
+            type: string
+            description: keys of Article
+            example: 'id'
+        tag:
+          type: string
+          example: 'diaries'
+        orders:
+          type: string
+          description: "field name. If you add prefix with '-', result will be descending."
+          example: '-publishedAt'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'failed to parse JSON.'
+        code:
+          type: integer
+          format: http status code
+          example: 500
+      required:
+        - message
+        - code

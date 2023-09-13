@@ -1,64 +1,69 @@
-'use client';
-
-import { ApiResponse, TagDetail } from '@/app/api/types/types';
+import { Article, GetArticleListQuery, Tag } from '@/app/api/types/types';
+import { ListResponse } from '@/app/api/types/types';
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
-import { fetcher } from '@/libs/swr/fetcher';
-import { Box, CircularProgress, Divider, Typography } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
-import useSWR from 'swr';
+import { apiFetch } from '@/libs/api-fetcher/fetcher';
+import { Box, Divider } from '@mui/material';
+import PageTitle from '@/components/PageTitle';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
   params: { id: string };
 };
 
-export default function TagPage(props: Props) {
+export default async function TagPage(props: Props) {
   const { id } = props.params;
-
-  const param = useSearchParams();
-  const pageParam = param.get('page');
+  const pageParam = props.searchParams['page'];
   let page: number;
-  if (!pageParam || isNaN(parseInt(pageParam))) {
+  if (!pageParam || Array.isArray(pageParam) || isNaN(parseInt(pageParam))) {
     page = 1;
   } else {
     page = parseInt(pageParam);
   }
 
-  const { data, error, isLoading } = useSWR<ApiResponse<TagDetail>, Error>(
-    `/api/tags/${id}?page=${page}`,
-    fetcher,
-  );
-
-  if (isLoading || !data || !data.result) {
-    return (
-      <>
-        <Box sx={{ textAlign: 'center' }}>
-          <CircularProgress />
-        </Box>
-      </>
-    );
-  }
-  if (error) {
-    throw new Error(error.message);
-  }
-  if (data.message) {
-    throw new Error(data.message);
+  const tagRes = await apiFetch(`/api/tags/${id}?page=${page}`);
+  if (!tagRes.ok) {
+    throw new Error('failed to fetch tag');
   }
 
+  let tag: Tag = {
+    id: '',
+    name: '',
+  };
+  try {
+    tag = (await tagRes.json()) as Tag;
+  } catch (e) {
+    throw new Error('failed to parse tag');
+  }
+
+  const body: GetArticleListQuery = {
+    limit: 10,
+    offset: (page - 1) * 10,
+    fields: ['id', 'title', 'description', 'publishedAt', 'tags'],
+    orders: '-publishedAt',
+    tag: id,
+  };
+
+  const res = await apiFetch(`/api/articles/list?page=${page}`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    throw new Error('failed to fetch articles');
+  }
+
+  const data = (await res.json()) as ListResponse<Article>;
   return (
     <>
-      <Typography variant="h4" component="h2" sx={{ mb: 5 }}>
-        {`タグ: ${data.result.name}`}
-      </Typography>
-      {data.result.articles.contents.map((article) => (
+      <PageTitle>{`タグ: ${tag.name}`}</PageTitle>
+      {data.contents.map((article) => (
         <Box key={article.id} sx={{ mb: 5 }}>
           <ArticleDescription article={article} />
           <Divider sx={{ my: 3 }} />
         </Box>
       ))}
 
-      <Paging totalCount={data.result.articles.totalCount} />
+      <Paging totalCount={data.totalCount} />
     </>
   );
 }

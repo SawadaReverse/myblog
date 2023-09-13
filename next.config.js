@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
-const path = require("path");
+const path = require('path');
 
-const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
-};
+const nextConfig = {};
 
 module.exports = nextConfig;

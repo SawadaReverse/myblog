@@ -1,50 +1,55 @@
 import { MicroCms } from '@/libs/microCms/microCms';
-import { Article, GetArticleListParams } from '@/libs/microCms/types';
-import { ApiResponse } from '@/app/api/types/types';
+import { MicroCMSArticle } from '@/libs/microCms/types';
 import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server';
-import { MicroCMSListResponse } from 'microcms-js-sdk';
+import { MicroCMSListResponse, MicroCMSQueries } from 'microcms-js-sdk';
+import {
+  Article,
+  ErrorResponse,
+  GetArticleListQuery,
+  ListResponse,
+} from '../../types/types';
 
-export async function GET(request: NextRequest) {
-  const params = request.nextUrl.searchParams;
-  const page = params.get('page');
-  if (!page || Number.isNaN(parseInt(page))) {
-    const response: ApiResponse<Record<string, never>> = {
-      message: 'invalid request',
+export async function POST(request: NextRequest) {
+  let reqBody: GetArticleListQuery;
+  try {
+    reqBody = await request.json();
+  } catch (error) {
+    const response: ErrorResponse = {
+      message: 'invalid request body',
+      code: StatusCodes.BAD_REQUEST,
     };
+
     return new Response(JSON.stringify(response), {
       status: StatusCodes.BAD_REQUEST,
     });
   }
 
-  const requestParams: GetArticleListParams = {
-    // TODO: 定数化
-    limit: 10,
-    fields: ['id', 'title', 'description', 'publishedAt', 'tags'],
-  };
-  if (parseInt(page) - 1 > 0) {
-    // TODO: 定数化
-    requestParams.offset = 10 * (parseInt(page) - 1);
-  }
+  const params: MicroCMSQueries = {};
+  if (reqBody.offset) params.offset = reqBody.offset;
+  if (reqBody.limit) params.limit = reqBody.limit;
+  if (reqBody.orders) params.orders = reqBody.orders;
+  if (reqBody.fields) params.fields = reqBody.fields;
+  if (reqBody.tag) params.filters = `tags[contains]${reqBody.tag}`;
 
   const cms = new MicroCms();
   return cms
-    .getArticleList(requestParams)
-    .then((result: MicroCMSListResponse<Article>) => {
-      const response: ApiResponse<MicroCMSListResponse<Article>> = {
-        result,
-        message: '',
+    .getArticleList(params)
+    .then((result: MicroCMSListResponse<MicroCMSArticle>) => {
+      const response: ListResponse<Article> = {
+        contents: result.contents,
+        totalCount: result.totalCount,
       };
-
       return new Response(JSON.stringify(response));
     })
     .catch((e) => {
-      const response: ApiResponse<Record<string, never>> = {
+      const response: ErrorResponse = {
+        code: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
         message: e.message ?? 'internal server error',
       };
 
       return new Response(JSON.stringify(response), {
-        status: StatusCodes.INTERNAL_SERVER_ERROR,
+        status: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
       });
     });
 }
