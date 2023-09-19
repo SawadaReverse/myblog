@@ -1,6 +1,4 @@
-'use client';
-
-import { Tag } from '@/libs/microCms/types';
+import { Tag } from '@/app/api/types/types';
 import { Tag as TagIcon } from '@mui/icons-material';
 import { Chip } from '@mui/material';
 
@@ -8,7 +6,7 @@ type Props = {
   tags: Tag[];
 };
 
-export default function TagArray(props: Props) {
+export default async function TagArray(props: Props) {
   return (
     <>
       {props.tags.map((tag) => (

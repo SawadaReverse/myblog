@@ -1,17 +1,26 @@
-import { MicroCms } from '@/libs/microCms/microCms';
 import { Box, Typography } from '@mui/material';
 import TagArray from './TagArray';
-
-const getTags = async () => {
-  'use server';
-
-  const cms = new MicroCms();
-  return await cms.getTagLists();
-};
+import { apiFetch } from '@/libs/api-fetcher/fetcher';
+import { ListResponse, Tag } from '@/app/api/types/types';
 
 export default async function TagList() {
-  const tags = await getTags();
+  const res = await apiFetch('/api/tags/list');
+  if (!res.ok) {
+    return (
+      <>
+        <Box>
+          <Typography variant="h5" component="h2">
+            タグ
+          </Typography>
+          <Box sx={{ my: 2 }}>
+            <Typography>タグを取得できませんでした。</Typography>
+          </Box>
+        </Box>
+      </>
+    );
+  }
 
+  const data = (await res.json()) as ListResponse<Tag>;
   return (
     <>
       <Box>
@@ -19,7 +28,7 @@ export default async function TagList() {
           タグ
         </Typography>
         <Box sx={{ my: 2 }}>
-          <TagArray tags={tags.contents} />
+          <TagArray tags={data.contents} />
         </Box>
       </Box>
     </>
