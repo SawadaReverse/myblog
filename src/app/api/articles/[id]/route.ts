@@ -18,7 +18,7 @@ export async function GET(_: NextRequest, context: { params: { id: string } }) {
     })
     .catch((e) => {
       const response: ErrorResponse = {
-        message: e.message ?? 'internal server error',
+        message: e.message ?? `failed to fetch article: ${id}`,
         code: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
       };
 

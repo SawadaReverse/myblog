@@ -32,7 +32,7 @@ export async function GET(
     .catch((e) => {
       const response: ErrorResponse = {
         code: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
-        message: e.message ?? 'internal server error',
+        message: e.message ?? `failed to fetch tag: ${id}`,
       };
 
       return new Response(JSON.stringify(response), {

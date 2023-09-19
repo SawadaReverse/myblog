@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     .catch((e) => {
       const response: ErrorResponse = {
         code: e.code ?? StatusCodes.INTERNAL_SERVER_ERROR,
-        message: e.message ?? 'internal server error',
+        message: e.message ?? `failed to fetch article list`,
       };
 
       return new Response(JSON.stringify(response), {
