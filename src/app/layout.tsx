@@ -31,10 +31,10 @@ export default function RootLayout({
               justifyContent="space-around"
               alignContent="flex-start"
             >
-              <Grid item lg={7}>
+              <Grid item xs={12} lg={7}>
                 {children}
               </Grid>
-              <Grid item lg={3}>
+              <Grid item xs={12} lg={3}>
                 <Profile />
                 <TagList />
               </Grid>
