@@ -4,14 +4,13 @@ import { Box, Typography, Link } from '@mui/material';
 import TagArray from './TagArray';
 import { Article } from '@/app/api/types/types';
 import dayjs from 'dayjs';
-import ja from 'dayjs/locale/ja';
 
 type Props = {
   article: Article;
 };
 
 export default function ArticleDescription(props: Props) {
-  dayjs.locale(ja);
+  dayjs.locale('ja');
   return (
     <>
       <Box>
