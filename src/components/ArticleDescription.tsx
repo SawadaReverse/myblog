@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function ArticleDescription(props: Props) {
-  dayjs.locale('ja');
+  dayjs.locale(ja);
   return (
     <>
       <Box>
