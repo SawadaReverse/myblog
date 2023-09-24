@@ -4,7 +4,7 @@ import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
 import { apiFetch } from '@/libs/api-fetcher/fetcher';
 import { Box, Divider } from '@mui/material';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from './components/PageTitle';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
