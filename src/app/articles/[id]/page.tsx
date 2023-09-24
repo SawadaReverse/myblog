@@ -1,9 +1,8 @@
-import { Box } from '@mui/material';
 import ArticleDescription from '@/components/ArticleDescription';
 import 'highlight.js/styles/github-dark.css';
 import { apiFetch } from '@/libs/api-fetcher/fetcher';
 import { Article } from '@/app/api/types/types';
-import MarkdownParser from '@/components/MarkdownParser';
+import MarkdownParser from './components/MarkdownParser';
 
 type Props = {
   params: { id: string };
@@ -21,9 +20,7 @@ export default async function ArticlePage(props: Props) {
     <>
       <ArticleDescription article={data} />
 
-      <Box>
-        <MarkdownParser>{data.body}</MarkdownParser>
-      </Box>
+      <MarkdownParser>{data.body}</MarkdownParser>
     </>
   );
 }

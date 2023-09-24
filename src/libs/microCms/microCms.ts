@@ -52,7 +52,6 @@ export class MicroCms {
     return client
       .get<MicroCMSListResponse<MicroCMSArticle>>({
         endpoint: 'articles',
-        // TODO: ページあたりの表示件数を定数にする
         queries: requestQueries,
       })
       .then((articles) => articles)

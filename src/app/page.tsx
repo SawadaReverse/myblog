@@ -3,6 +3,7 @@ import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
 import { apiFetch } from '@/libs/api-fetcher/fetcher';
 import { Article, GetArticleListQuery, ListResponse } from './api/types/types';
+import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -16,8 +17,8 @@ export default async function Home(props: Props) {
       : 1;
 
   const body: GetArticleListQuery = {
-    limit: 10,
-    offset: (page - 1) * 10,
+    limit: ARTICLE_PER_PAGE,
+    offset: (page - 1) * ARTICLE_PER_PAGE,
     fields: ['id', 'title', 'description', 'publishedAt', 'tags'],
     orders: '-publishedAt',
   };
