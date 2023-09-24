@@ -1,5 +1,6 @@
 'use client';
 
+import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
 import { Box, Pagination } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -26,7 +27,7 @@ export default function Paging(props: Props) {
     <>
       <Box sx={{ justifyContent: 'center', display: 'flex' }}>
         <Pagination
-          count={Math.ceil(props.totalCount / 10)}
+          count={Math.ceil(props.totalCount / ARTICLE_PER_PAGE)}
           page={page}
           onChange={onChangePagination}
         />
