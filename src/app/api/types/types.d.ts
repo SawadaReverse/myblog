@@ -5,7 +5,7 @@ export type Tag = Pick<MicroCMSTag, 'id' | 'name'>;
 
 export type Article = Pick<
   MicroCMSArticle,
-  'id' | 'title' | 'description' | 'body' | 'tags' | 'publishedAt'
+  'id' | 'title' | 'description' | 'body' | 'publishedAt'
 >;
 
 export type GetArticleListQuery = Pick<

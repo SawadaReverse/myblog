@@ -7,8 +7,6 @@ servers:
 tags:
   - name: article
     description: blog articles
-  - name: tag
-    description: grouping articles
 paths:
   /articles/{id}:
     get:
@@ -78,57 +76,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /tags/{id}:
-    get:
-      tags:
-        - 'tag'
-      summary: get a tag
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: success response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-        '500':
-          description: internal server error (ex. failed to fetch article from microCMS)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-  /tags/list:
-    get:
-      tags:
-        - 'tag'
-      summary: get all tags
-      parameters: []
-      responses:
-        '200':
-          description: success response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  contents:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Tag'
-                  totalCount:
-                    type: integer
-                    example: 10
-        '500':
-          description: internal server error (ex. failed to fetch article from microCMS)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     Article:
@@ -146,10 +93,6 @@ components:
         body:
           type: string
           example: はじめまして。さわだと申します。\n\n「ハマったこと、悩んだこと、愚痴。」…
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
         publishedAt:
           type: string
           format: date-time
@@ -159,21 +102,6 @@ components:
         - title
         - description
         - body
-        - tags
-        - createdAt
-        - publishedAt
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-          example: 日記
-        id:
-          type: string
-          example: diaries
-      required:
-        - id
-        - name
         - createdAt
         - publishedAt
     GetArticleListQuery:
@@ -193,9 +121,6 @@ components:
             type: string
             description: keys of Article
             example: 'id'
-        tag:
-          type: string
-          example: 'diaries'
         orders:
           type: string
           description: "field name. If you add prefix with '-', result will be descending."

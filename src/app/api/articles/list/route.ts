@@ -30,10 +30,9 @@ export async function POST(request: NextRequest) {
   if (reqBody.limit) params.limit = reqBody.limit;
   if (reqBody.orders) params.orders = reqBody.orders;
   if (reqBody.fields) params.fields = reqBody.fields;
-  if (reqBody.tag) params.filters = `tags[contains]${reqBody.tag}`;
 
   const cms = new MicroCms();
-  return cms
+  return await cms
     .getArticleList(params)
     .then((result: MicroCMSListResponse<MicroCMSArticle>) => {
       const response: ListResponse<Article> = {
