@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   if (reqBody.fields) params.fields = reqBody.fields;
 
   const cms = new MicroCms();
-  return await cms
+  return cms
     .getArticleList(params)
     .then((result: MicroCMSListResponse<MicroCMSArticle>) => {
       const response: ListResponse<Article> = {
