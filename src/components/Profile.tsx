@@ -1,7 +1,7 @@
 'use client';
 
 import { Avatar, Box, Grid, Typography } from '@mui/material';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import LanguageIcon from '@mui/icons-material/Language';
 
 export default function Profile() {
   return (
@@ -32,15 +32,11 @@ export default function Profile() {
             justifyContent="center"
           >
             <Grid item>
-              <TwitterIcon />
+              <LanguageIcon />
             </Grid>
             <Grid item>
-              <a
-                href="https://twitter.com/09224"
-                target="_blank"
-                rel="noreferrer"
-              >
-                @09224
+              <a href="https://sawada.pro" target="_blank" rel="noreferrer">
+                sawada.pro
               </a>
             </Grid>
           </Grid>

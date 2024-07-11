@@ -19,7 +19,7 @@ export default async function Home(props: Props) {
   const body: GetArticleListQuery = {
     limit: ARTICLE_PER_PAGE,
     offset: (page - 1) * ARTICLE_PER_PAGE,
-    fields: ['id', 'title', 'description', 'publishedAt', 'tags'],
+    fields: ['id', 'title', 'description', 'publishedAt'],
     orders: '-publishedAt',
   };
 

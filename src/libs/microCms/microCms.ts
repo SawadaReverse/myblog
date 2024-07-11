@@ -3,7 +3,7 @@ import {
   MicroCMSQueries,
   createClient,
 } from 'microcms-js-sdk';
-import { MicroCMSArticle, MicroCMSTag } from './types';
+import { MicroCMSArticle } from './types';
 import { GetArticleListQuery } from '@/app/api/types/types';
 
 export class MicroCms {
@@ -42,11 +42,7 @@ export class MicroCms {
       offset: params.offset,
       fields: params.fields,
       orders: params.orders ?? '-publishedAt',
-      filters: params.tag,
     };
-    if (params.tag) {
-      requestQueries.filters = `tags[contains]${params.tag}`;
-    }
 
     const client = this.newClient();
     return client
@@ -67,38 +63,13 @@ export class MicroCms {
         endpoint: 'articles',
         queries: {
           q: keyword,
-          fields: [
-            'title',
-            'path',
-            'publishedAt',
-            'tags',
-            'description',
-            'id',
-          ].join(','),
+          fields: ['title', 'path', 'publishedAt', 'description', 'id'].join(
+            ',',
+          ),
           orders: '-publishedAt',
         },
       })
       .then((articles) => articles)
-      .catch((error) => {
-        throw error;
-      });
-  };
-
-  public getTagLists = async () => {
-    const client = this.newClient();
-    return client
-      .get<MicroCMSListResponse<MicroCMSTag>>({ endpoint: 'tags' })
-      .then((tags) => tags)
-      .catch((error) => {
-        throw error;
-      });
-  };
-
-  public getTag = async (id: string) => {
-    const client = this.newClient();
-    return client
-      .get<MicroCMSTag>({ endpoint: `tags/${id}` })
-      .then((tag) => tag)
       .catch((error) => {
         throw error;
       });

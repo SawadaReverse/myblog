@@ -1,7 +1,6 @@
 'use client';
 
 import { Box, Typography, Link } from '@mui/material';
-import TagArray from './TagArray';
 import { Article } from '@/app/api/types/types';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -35,8 +34,6 @@ export default function ArticleDescription(props: Props) {
             {props.article.description}
           </Typography>
         </Link>
-
-        <TagArray tags={props.article.tags} />
       </Box>
     </>
   );
