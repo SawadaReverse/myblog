@@ -1,9 +1,11 @@
 import { Box, Divider } from '@mui/material';
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
-import { apiFetch } from '@/libs/api-fetcher/fetcher';
-import { Article, GetArticleListQuery, ListResponse } from './api/types/types';
 import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
+import { getArticleList } from '@/libs/microCms/microCms';
+import { MicroCMSArticle } from '@/libs/microCms/types';
+import { StatusCodes } from 'http-status-codes';
+import { MicroCMSListResponse } from 'microcms-js-sdk';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -16,25 +18,34 @@ export default async function Home(props: Props) {
       ? parseInt(pageParam)
       : 1;
 
-  const body: GetArticleListQuery = {
-    limit: ARTICLE_PER_PAGE,
-    offset: (page - 1) * ARTICLE_PER_PAGE,
-    fields: ['id', 'title', 'description', 'publishedAt'],
-    orders: '-publishedAt',
+  let data: MicroCMSListResponse<MicroCMSArticle> = {
+    totalCount: 0,
+    contents: [],
+    limit: 0,
+    offset: 0,
   };
-
-  const res = await apiFetch(`/api/articles/list?page=${page}`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    throw new Error('failed to fetch articles');
+  try {
+    data = await getArticleList({
+      limit: ARTICLE_PER_PAGE,
+      offset: (page - 1) * ARTICLE_PER_PAGE,
+      fields: 'id,title,description,publishedAt',
+      orders: '-publishedAt',
+    });
+  } catch (e) {
+    console.error(e);
+    const code =
+      e && typeof e === 'object' && 'code' in e
+        ? e.code
+        : StatusCodes.INTERNAL_SERVER_ERROR;
+    throw {
+      code,
+      message: `failed to fetch article list`,
+    };
   }
 
-  const data = (await res.json()) as ListResponse<Article>;
   return (
     <>
-      {data.contents.map((article) => (
+      {data?.contents.map((article) => (
         <Box key={article.id} sx={{ mb: 5 }}>
           <ArticleDescription article={article} />
           <Divider sx={{ my: 3 }} />
