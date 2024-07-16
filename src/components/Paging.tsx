@@ -2,7 +2,7 @@
 
 import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
 import { Box, Pagination } from '@mui/material';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 type Props = {
   totalCount: number;
@@ -10,9 +10,10 @@ type Props = {
 
 export default function Paging(props: Props) {
   const path = usePathname();
-  const router = useRouter();
-  const onChangePagination = (_: React.ChangeEvent<unknown>, value: number) =>
-    value === 1 ? router.push(path) : router.push(`${path}?page=${value}`);
+  const onChangePagination = (_: React.ChangeEvent<unknown>, value: number) => {
+    if (value === 1) location.href = path;
+    else location.href = `${path}?page=${value}`;
+  };
 
   const param = useSearchParams();
   const pageParam = param.get('page');

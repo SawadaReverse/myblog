@@ -14,7 +14,7 @@ export const generateStaticParams = async () => {
     offset: 0,
   };
   try {
-    data = await getArticleList({});
+    data = await getArticleList();
   } catch (e) {
     console.error(e);
     const code =
