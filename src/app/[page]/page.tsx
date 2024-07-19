@@ -1,11 +1,27 @@
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
-import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
+import { ARTICLE_PER_PAGE, METADATA } from '@/libs/constants/constants';
 import { getAllArticleIDs, getArticleList } from '@/libs/microCms/microCms';
 import { MicroCMSArticle } from '@/libs/microCms/types';
 import { Box, Divider } from '@mui/material';
 import { StatusCodes } from 'http-status-codes';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: `トップページ${METADATA.TITLE_SUFFIX}`,
+  description: 'ひまなときにかきます。',
+  openGraph: {
+    title: `トップページ`,
+    description: 'ひまなときにかきます。',
+    type: 'website',
+    siteName: METADATA.SITE_NAME,
+  },
+  twitter: {
+    title: `トップページ${METADATA.TITLE_SUFFIX}`,
+    description: 'ひまなときにかきます。',
+  },
+};
 
 export const generateStaticParams = async () => {
   let data: string[];
