@@ -7,12 +7,7 @@ import { getArticle, getArticleList } from '@/libs/microCms/microCms';
 import { StatusCodes } from 'http-status-codes';
 
 export const generateStaticParams = async () => {
-  let data: MicroCMSListResponse<MicroCMSArticle> = {
-    totalCount: 0,
-    contents: [],
-    limit: 0,
-    offset: 0,
-  };
+  let data: MicroCMSListResponse<MicroCMSArticle>;
   try {
     data = await getArticleList();
   } catch (e) {
