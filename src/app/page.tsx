@@ -1,7 +1,7 @@
 import { Box, Divider } from '@mui/material';
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
-import { ARTICLE_PER_PAGE, METADATA } from '@/libs/constants/constants';
+import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
 import { getArticleList } from '@/libs/microCms/microCms';
 import { MicroCMSArticle } from '@/libs/microCms/types';
 import { StatusCodes } from 'http-status-codes';
@@ -10,7 +10,7 @@ import { Metadata } from 'next';
 import { makeMetadata } from '@/libs/metadataMaker/metadataMaker';
 
 export const metadata: Metadata = makeMetadata({
-  title: `トップページ${METADATA.TITLE_SUFFIX}`,
+  title: `トップページ`,
   description: 'ひまなときにかきます。',
   type: 'website',
   url: '/',
