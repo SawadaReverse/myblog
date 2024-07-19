@@ -1,6 +1,7 @@
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
 import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
+import { makeMetadata } from '@/libs/metadataMaker/metadataMaker';
 import { getAllArticleIDs, getArticleList } from '@/libs/microCms/microCms';
 import { MicroCMSArticle } from '@/libs/microCms/types';
 import { Box, Divider } from '@mui/material';
@@ -31,6 +32,15 @@ export const generateStaticParams = async () => {
 
 type Props = {
   params: { page: string };
+};
+
+export const generateMetadata = async ({ params: { page } }: Props) => {
+  return makeMetadata({
+    title: `トップページ`,
+    description: 'ひまなときにかきます。',
+    type: 'website',
+    url: `/${page}`,
+  });
 };
 
 export default async function Page({ params: { page } }: Props) {
