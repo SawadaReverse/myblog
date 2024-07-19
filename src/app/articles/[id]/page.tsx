@@ -1,15 +1,14 @@
 import ArticleDescription from '@/components/ArticleDescription';
 import 'highlight.js/styles/github-dark.css';
 import MarkdownParser from './components/MarkdownParser';
-import { MicroCMSListResponse } from 'microcms-js-sdk';
 import { MicroCMSArticle } from '@/libs/microCms/types';
-import { getArticle, getArticleList } from '@/libs/microCms/microCms';
+import { getAllArticleIDs, getArticle } from '@/libs/microCms/microCms';
 import { StatusCodes } from 'http-status-codes';
 
 export const generateStaticParams = async () => {
-  let data: MicroCMSListResponse<MicroCMSArticle>;
+  let data: string[];
   try {
-    data = await getArticleList();
+    data = await getAllArticleIDs();
   } catch (e) {
     console.error(e);
     const code =
@@ -21,7 +20,8 @@ export const generateStaticParams = async () => {
       message: `failed to fetch article`,
     };
   }
-  return data.contents.map((article) => ({ id: article.id }));
+
+  return data.map((id) => ({ id }));
 };
 
 type Props = {

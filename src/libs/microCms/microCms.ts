@@ -26,7 +26,7 @@ export const getArticle = async (id: string) => {
     });
 };
 
-export const getArticleList = async (params?: MicroCMSQueries) => {
+export const getArticleList = async (params: MicroCMSQueries) => {
   const queries = {
     ...params,
     orders: params?.orders ?? '-publishedAt',
@@ -36,6 +36,17 @@ export const getArticleList = async (params?: MicroCMSQueries) => {
     .get<MicroCMSListResponse<MicroCMSArticle>>({
       endpoint: 'articles',
       queries: queries,
+    })
+    .then((result) => result)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getAllArticleIDs = async () => {
+  return client
+    .getAllContentIds({
+      endpoint: 'articles',
     })
     .then((result) => result)
     .catch((error) => {

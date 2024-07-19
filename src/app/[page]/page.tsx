@@ -1,16 +1,16 @@
 import ArticleDescription from '@/components/ArticleDescription';
 import Paging from '@/components/Paging';
 import { ARTICLE_PER_PAGE } from '@/libs/constants/constants';
-import { getArticleList } from '@/libs/microCms/microCms';
+import { getAllArticleIDs, getArticleList } from '@/libs/microCms/microCms';
 import { MicroCMSArticle } from '@/libs/microCms/types';
 import { Box, Divider } from '@mui/material';
 import { StatusCodes } from 'http-status-codes';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 
 export const generateStaticParams = async () => {
-  let data: MicroCMSListResponse<MicroCMSArticle>;
+  let data: string[];
   try {
-    data = await getArticleList({ fields: 'id' });
+    data = await getAllArticleIDs();
   } catch (e) {
     console.error(e);
     const code =
@@ -23,7 +23,7 @@ export const generateStaticParams = async () => {
     };
   }
 
-  const pages = Math.ceil(data.totalCount / ARTICLE_PER_PAGE);
+  const pages = Math.ceil(data.length / ARTICLE_PER_PAGE);
   return Array.from({ length: pages }, (_, i) => i + 1).map((page) => ({
     page: String(page),
   }));
