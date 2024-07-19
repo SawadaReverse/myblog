@@ -3,6 +3,9 @@ import HeaderBar from '@/components/HeaderBar';
 import Profile from '@/components/Profile';
 import './global.scss';
 
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
 export default function RootLayout({
   children,
 }: {
