@@ -7,21 +7,14 @@ import { MicroCMSArticle } from '@/libs/microCms/types';
 import { StatusCodes } from 'http-status-codes';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import { Metadata } from 'next';
+import { makeMetadata } from '@/libs/metadataMaker/metadataMaker';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = makeMetadata({
   title: `トップページ${METADATA.TITLE_SUFFIX}`,
   description: 'ひまなときにかきます。',
-  openGraph: {
-    title: `トップページ`,
-    description: 'ひまなときにかきます。',
-    type: 'website',
-    siteName: METADATA.SITE_NAME,
-  },
-  twitter: {
-    title: `トップページ${METADATA.TITLE_SUFFIX}`,
-    description: 'ひまなときにかきます。',
-  },
-};
+  type: 'website',
+  url: '/',
+});
 
 export default async function Home() {
   let data: MicroCMSListResponse<MicroCMSArticle>;
