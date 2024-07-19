@@ -1,37 +1,31 @@
-'use client';
-
 import { Box, Typography, Link } from '@mui/material';
-import { Article } from '@/app/api/types/types';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import ja from 'dayjs/locale/ja';
+import { MicroCMSArticle } from '@/libs/microCms/types';
 
 dayjs.locale(ja);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 type Props = {
-  article: Article;
+  article: MicroCMSArticle;
 };
 
-export default function ArticleDescription(props: Props) {
+export default function ArticleDescription({ article }: Props) {
   return (
     <>
       <Box>
-        <Link
-          href={`/articles/${props.article.id}`}
-          underline="none"
-          color="inherit"
-        >
-          <Typography variant="h5">{props.article.title}</Typography>
+        <Link href={`/articles/${article.id}`} underline="none" color="inherit">
+          <Typography variant="h5">{article.title}</Typography>
           <Typography variant="body2" color="text.secondary" component="div">
-            {dayjs(props.article.publishedAt)
+            {dayjs(article.publishedAt)
               .tz('Asia/Tokyo')
-              .format('YYYY/MM/DD HH:mm:ss') ?? props.article.publishedAt}
+              .format('YYYY/MM/DD HH:mm:ss') ?? article.publishedAt}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" sx={{ my: 2 }}>
-            {props.article.description}
+            {article.description}
           </Typography>
         </Link>
       </Box>

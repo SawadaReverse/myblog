@@ -1,21 +1,49 @@
 import ArticleDescription from '@/components/ArticleDescription';
 import 'highlight.js/styles/github-dark.css';
-import { apiFetch } from '@/libs/api-fetcher/fetcher';
-import { Article } from '@/app/api/types/types';
 import MarkdownParser from './components/MarkdownParser';
+import { MicroCMSArticle } from '@/libs/microCms/types';
+import { getAllArticleIDs, getArticle } from '@/libs/microCms/microCms';
+import { StatusCodes } from 'http-status-codes';
+
+export const generateStaticParams = async () => {
+  let data: string[];
+  try {
+    data = await getAllArticleIDs();
+  } catch (e) {
+    console.error(e);
+    const code =
+      e && typeof e === 'object' && 'code' in e
+        ? e.code
+        : StatusCodes.INTERNAL_SERVER_ERROR;
+    throw {
+      code,
+      message: `failed to fetch article`,
+    };
+  }
+
+  return data.map((id) => ({ id }));
+};
 
 type Props = {
   params: { id: string };
 };
 
-export default async function ArticlePage(props: Props) {
-  const res = await apiFetch(`/api/articles/${props.params.id}`);
-  if (!res.ok) {
-    console.dir(res, { depth: null });
-    throw new Error('failed to fetch articles');
+export default async function ArticlePage({ params: { id } }: Props) {
+  let data: MicroCMSArticle;
+  try {
+    data = await getArticle(id);
+  } catch (e) {
+    console.error(e);
+    const code =
+      e && typeof e === 'object' && 'code' in e
+        ? e.code
+        : StatusCodes.INTERNAL_SERVER_ERROR;
+    throw {
+      code,
+      message: `failed to fetch article`,
+    };
   }
 
-  const data = (await res.json()) as Article;
   return (
     <>
       <ArticleDescription article={data} />
