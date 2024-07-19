@@ -6,6 +6,15 @@ import { getArticleList } from '@/libs/microCms/microCms';
 import { MicroCMSArticle } from '@/libs/microCms/types';
 import { StatusCodes } from 'http-status-codes';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
+import { Metadata } from 'next';
+import { makeMetadata } from '@/libs/metadataMaker/metadataMaker';
+
+export const metadata: Metadata = makeMetadata({
+  title: `トップページ`,
+  description: 'ひまなときにかきます。',
+  type: 'website',
+  url: '/',
+});
 
 export default async function Home() {
   let data: MicroCMSListResponse<MicroCMSArticle>;
